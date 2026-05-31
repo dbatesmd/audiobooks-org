@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audiobooks.org — Every audiobook, every source</title>
+  <meta name="description" content="Compare paid platforms, explore free audiobook libraries, and discover new AI-narrated titles — all in one place." />
+  <link rel="canonical" href="https://audiobooks.org/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Audiobooks.org — Every audiobook, every source" />
+  <meta property="og:description" content="Compare paid platforms, explore free audiobook libraries, and discover new AI-narrated titles — all in one place." />
+  <meta property="og:url" content="https://audiobooks.org/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%8E%A7%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Audiobooks.org home">
+        <div class="nav-logo-icon" aria-hidden="true">🎧</div>
+        <span><span>Audio</span>books.org</span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html"           class="nav-link active" aria-current="page">Home</a>
+        <a href="paid-platforms.html"  class="nav-link">Paid platforms</a>
+        <a href="free-sources.html"    class="nav-link">Free sources</a>
+        <a href="ai-audiobooks.html"   class="nav-link">AI picks</a>
+      </div>
+      <a href="paid-platforms.html#audible" class="btn btn-primary btn-sm nav-cta">Start listening</a>
+      <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links" onclick="const l=document.getElementById('nav-links');const open=l.classList.toggle('open');this.setAttribute('aria-expanded',open);">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────────────── -->
+<main id="main">
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">
+      <span class="badge badge-teal">✦ Your audiobook hub</span>
+    </div>
+    <h1>Every audiobook,<br>every source.</h1>
+    <p class="hero-sub">Compare platforms, explore free libraries, and discover AI-narrated titles — all in one place.</p>
+    <form class="search-bar" role="search" onsubmit="event.preventDefault(); const q=this.q.value.trim(); if(q) window.open('https://www.audible.com/search?keywords='+encodeURIComponent(q),'_blank','noopener');">
+      <label class="sr-only" for="hero-search">Search audiobooks</label>
+      <input id="hero-search" type="search" name="q" placeholder="Search by title, author, or genre…" autocomplete="off" />
+      <button type="submit">Search</button>
+    </form>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>500,000+</strong> titles indexed</div>
+      <div class="hero-stat"><strong>12</strong> free sources</div>
+      <div class="hero-stat"><strong>New AI titles</strong> added weekly</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURED PLATFORMS ─────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2>Featured platforms</h2>
+        <p class="section-meta">Affiliate links support this free site — at no extra cost to you</p>
+      </div>
+      <a href="paid-platforms.html" class="see-all">See all paid platforms →</a>
+    </div>
+
+    <div class="platform-grid">
+      <!-- Audible -->
+      <div class="platform-card featured">
+        <div class="platform-card-top">
+          <div class="platform-icon" style="background:#FAEEDA;">📚</div>
+          <span class="badge badge-deal">30-day free trial</span>
+        </div>
+        <h3>Audible</h3>
+        <p>World's largest catalog. 1 free credit/month, keep your books forever.</p>
+        <a href="paid-platforms.html#audible" class="platform-cta">Try free for 30 days ↗</a>
+      </div>
+
+      <!-- Scribd -->
+      <div class="platform-card">
+        <div class="platform-card-top">
+          <div class="platform-icon" style="background:#E6F1FB;">📖</div>
+          <span class="badge badge-unltd">Unlimited access</span>
+        </div>
+        <h3>Scribd</h3>
+        <p>Unlimited audiobooks, ebooks, and magazines for one flat monthly price.</p>
+        <a href="paid-platforms.html#scribd" class="platform-cta">Get unlimited access ↗</a>
+      </div>
+
+      <!-- Libro.fm -->
+      <div class="platform-card">
+        <div class="platform-card-top">
+          <div class="platform-icon" style="background:#E1F5EE;">🏠</div>
+          <span class="badge badge-trial">Indie stores</span>
+        </div>
+        <h3>Libro.fm</h3>
+        <p>Same catalog as Audible — your purchase supports independent bookshops.</p>
+        <a href="paid-platforms.html#librofm" class="platform-cta">Browse Libro.fm ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── FREE SOURCES PREVIEW ───────────────────────────────────── -->
+<section class="section" style="background:#FAFDF9;">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2>🔓 Top free sources</h2>
+        <p class="section-meta">No subscription, no credit card — completely free</p>
+      </div>
+      <a href="free-sources.html" class="see-all">See all 12 free sources →</a>
+    </div>
+
+    <div class="free-list">
+      <a href="free-sources.html#librivox" class="free-item" style="text-decoration:none;">
+        <div class="free-icon" style="background:#E1F5EE;">🎙</div>
+        <div class="free-info">
+          <h4>LibriVox</h4>
+          <p>Public domain books read by volunteers worldwide — no account needed</p>
+          <div class="free-count">17,000+ free audiobooks</div>
+        </div>
+        <span class="free-arrow">›</span>
+      </a>
+      <a href="free-sources.html#libby" class="free-item" style="text-decoration:none;">
+        <div class="free-icon" style="background:#FAEEDA;">📚</div>
+        <div class="free-info">
+          <h4>Libby / OverDrive</h4>
+          <p>Borrow free audiobooks with your public library card</p>
+          <div class="free-count">Millions of titles via local libraries</div>
+        </div>
+        <span class="free-arrow">›</span>
+      </a>
+      <a href="free-sources.html#gutenberg" class="free-item" style="text-decoration:none;">
+        <div class="free-icon" style="background:#E6F1FB;">📂</div>
+        <div class="free-info">
+          <h4>Project Gutenberg</h4>
+          <p>Classic literature in audio — no DRM, free to download forever</p>
+          <div class="free-count">6,000+ audio titles</div>
+        </div>
+        <span class="free-arrow">›</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── AI AUDIOBOOKS STRIP ────────────────────────────────────── -->
+<section class="section ai-strip">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="badge badge-purple" style="margin-bottom:8px;display:inline-block;">⚙ New this week</span>
+        <h2>AI-narrated audiobooks</h2>
+        <p class="section-meta" style="margin-top:4px;">Synthetic-voice productions expanding the catalog every week</p>
+      </div>
+      <a href="ai-audiobooks.html" class="see-all" style="color:#534AB7;">Browse all AI titles →</a>
+    </div>
+
+    <div class="ai-grid">
+      <a href="ai-audiobooks.html" class="ai-card" style="text-decoration:none;">
+        <div class="ai-cover" style="background:#EEEDFE;">🧠</div>
+        <div class="ai-meta">
+          <h4>Deep Focus</h4>
+          <p>AI narrated · 6 hrs</p>
+          <span class="badge badge-new mt-4" style="font-size:0.7rem;">New</span>
+        </div>
+      </a>
+      <a href="ai-audiobooks.html" class="ai-card" style="text-decoration:none;">
+        <div class="ai-cover" style="background:#E1F5EE;">🚀</div>
+        <div class="ai-meta">
+          <h4>The Last Colony</h4>
+          <p>AI narrated · 9 hrs</p>
+          <span class="badge badge-new mt-4" style="font-size:0.7rem;">Sci-fi</span>
+        </div>
+      </a>
+      <a href="ai-audiobooks.html" class="ai-card" style="text-decoration:none;">
+        <div class="ai-cover" style="background:#FAEEDA;">💡</div>
+        <div class="ai-meta">
+          <h4>Wealth Unlocked</h4>
+          <p>AI narrated · 4 hrs</p>
+          <span class="badge badge-new mt-4" style="font-size:0.7rem;">Finance</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── SUBMISSION FORM ─────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="submit-box">
+      <div class="submit-header">
+        <div class="submit-header-icon" style="background:#E1F5EE;">📬</div>
+        <div>
+          <h3>Know a great audiobook source?</h3>
+          <p>Submit it — we review all submissions every Monday and add approved sources the same week</p>
+        </div>
+      </div>
+      <form class="submit-form" id="home-submit-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-field">
+          <label class="form-label">Source name *</label>
+          <input class="form-input" type="text" name="source_name" placeholder="e.g. Hoopla Digital" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label">Website URL *</label>
+          <input class="form-input" type="text" name="url" placeholder="https://…" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label">Type *</label>
+          <select class="form-select" name="type">
+            <option value="">Select one…</option>
+            <option>Free source</option>
+            <option>Paid / subscription</option>
+            <option>AI audiobooks</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Your email (optional)</label>
+          <input class="form-input" type="email" name="email" placeholder="For review notification" />
+        </div>
+        <div class="form-field full">
+          <label class="form-label">Brief description *</label>
+          <textarea class="form-textarea" name="description" placeholder="What makes this source worth listing? Any affiliate program available?" required></textarea>
+        </div>
+        <input type="hidden" name="_subject" value="New Audiobooks.org Submission" />
+        <input type="text" name="_gotcha" style="display:none" />
+      </form>
+      <div class="submit-footer">
+        <span class="submit-note">📅 Reviewed every Monday · Approved links go live the same week</span>
+        <button type="submit" form="home-submit-form" class="btn btn-primary btn-sm">Submit source</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 Audiobooks.org · Affiliate links help keep this site free</p>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

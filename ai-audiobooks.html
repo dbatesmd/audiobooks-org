@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI-Narrated Audiobooks — Audiobooks.org</title>
+  <link rel="canonical" href="https://audiobooks.org/ai-audiobooks.html" />
+  <meta name="description" content="Discover the best AI-narrated audiobooks — new synthetic-voice productions expanding the catalog every week." />
+  <meta property="og:title" content="AI-Narrated Audiobooks — Audiobooks.org" />
+  <meta property="og:description" content="New synthetic-voice productions expanding the catalog every week — indie authors, niche topics, and titles that never had a human recording." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://audiobooks.org/ai-audiobooks.html" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    /* ── AI page extras ─────────────────────────────────── */
+    .ai-info {
+      background: var(--purple-light);
+      border: 1px solid var(--purple-mid);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      font-size: 0.88rem;
+      color: var(--purple-dark);
+      margin: 24px 0;
+    }
+    .genre-pills { display: flex; gap: 8px; flex-wrap: wrap; margin: 24px 0 8px; }
+    .gpill {
+      font-size: 0.8rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 20px;
+      border: 1.5px solid var(--border);
+      background: var(--bg); color: var(--text-muted);
+      cursor: pointer; transition: all 0.12s;
+    }
+    .gpill.active, .gpill:hover {
+      background: var(--purple-light);
+      border-color: var(--purple-mid);
+      color: var(--purple-dark);
+    }
+    .books-section { padding: 40px 0 8px; }
+    .books-section + .books-section { padding-top: 8px; }
+    .books-eyebrow {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--purple); margin-bottom: 4px;
+    }
+    .books-desc { font-size: 0.88rem; color: var(--text-muted); margin: 4px 0 20px; }
+    .ai-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .ai-card-lg {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .ai-card-lg:hover { box-shadow: var(--shadow-md); border-color: #c0bce8; }
+    .ai-cover-lg {
+      height: 80px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px;
+      background: var(--purple-light);
+    }
+    .ai-body { padding: 14px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .ai-body h3 { font-size: 0.9rem; line-height: 1.3; }
+    .ai-body .ai-sub { font-size: 0.78rem; color: var(--text-muted); }
+    .ai-body .ai-dur { font-size: 0.78rem; color: var(--text-muted); }
+    .ai-badges { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; }
+    .badge-voice { background: var(--purple-light); color: var(--purple-dark); }
+    .badge-popular { background: var(--teal-light); color: var(--teal-dark); }
+    .badge-top { background: var(--amber-light); color: var(--amber-dark); }
+    .ai-quality-note {
+      background: var(--bg-off); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 16px 20px;
+      font-size: 0.85rem; color: var(--text-muted);
+      margin: 32px 0 0;
+    }
+    .ai-quality-note strong { color: var(--text); }
+    @media (max-width: 900px) {
+      .ai-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .ai-grid-4 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- ── NAV ───────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/index.html" class="nav-logo">
+        <div class="nav-logo-icon">🎧</div>
+        <span>Audiobooks<span>.org</span></span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/index.html" class="nav-link">Home</a></li>
+        <li><a href="/paid-platforms.html" class="nav-link">Paid platforms</a></li>
+        <li><a href="/free-sources.html" class="nav-link">Free sources</a></li>
+        <li><a href="/ai-audiobooks.html" class="nav-link active">AI picks</a></li>
+      </ul>
+      <a href="/paid-platforms.html#audible" class="btn btn-primary nav-cta">Start listening</a>
+      <button class="nav-hamburger" aria-label="Toggle menu" onclick="document.getElementById('nav-links').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── PAGE HERO ──────────────────────────────────────────── -->
+<div class="page-hero purple">
+  <div class="container">
+    <p class="books-eyebrow">⚙ AI narrated</p>
+    <h1>AI-narrated audiobooks</h1>
+    <p>Synthetic-voice productions expanding the catalog every week — indie authors, niche topics, and titles that never had a human recording.</p>
+  </div>
+</div>
+
+<!-- ── MAIN ───────────────────────────────────────────────── -->
+<main id="main">
+  <div class="container">
+
+    <div class="ai-info">
+      <strong>⚙ About AI narration:</strong> AI-narrated audiobooks use synthetic voices trained on human speech. Quality has improved dramatically since 2023 — top-tier productions are nearly indistinguishable from human narrators. We flag the voice engine where known so you can judge for yourself.
+    </div>
+
+    <div class="genre-pills">
+      <button class="gpill active">All genres</button>
+      <button class="gpill">Self-Help</button>
+      <button class="gpill">Sci-Fi</button>
+      <button class="gpill">Business</button>
+      <button class="gpill">Finance</button>
+      <button class="gpill">Fiction</button>
+      <button class="gpill">New this week</button>
+    </div>
+
+    <!-- ── JUST ADDED ─────────────────────────────────────── -->
+    <div class="books-section">
+      <p class="books-eyebrow">⚡ New this week</p>
+      <div class="section-header">
+        <h2>Just added</h2>
+      </div>
+      <div class="ai-grid-4">
+
+        <a href="https://www.audible.com/pd/Shadow-Work-and-the-Self-Audiobook/B0FBL8KT8J" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">🧠</div>
+          <div class="ai-body">
+            <h3>Shadow Work and the Self</h3>
+            <span class="ai-sub">AI narrated · Self-Help</span>
+            <span class="ai-dur">⏱ 4 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-new">New</span>
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.audible.com/pd/Innocence-Lost-Audiobook/B0DCCL4WJD" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">🚀</div>
+          <div class="ai-body">
+            <h3>Innocence Lost</h3>
+            <span class="ai-sub">AI narrated · Sci-Fi</span>
+            <span class="ai-dur">⏱ 9 hrs 33 min</span>
+            <div class="ai-badges">
+              <span class="badge badge-new">New</span>
+              <span class="badge badge-voice">ElevenLabs voice</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.audible.com/pd/Side-Hustle-Secrets-Audiobook/B0F1CYD1PT" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">💡</div>
+          <div class="ai-body">
+            <h3>Side Hustle Secrets</h3>
+            <span class="ai-sub">AI narrated · Business</span>
+            <span class="ai-dur">⏱ 4 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-new">New</span>
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.audible.com/pd/Science-Fiction-Novels-Vol-01-Audiobook/B0CY85MFWJ" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">🤖</div>
+          <div class="ai-body">
+            <h3>Science Fiction Novels Vol. 01</h3>
+            <span class="ai-sub">AI narrated · Sci-Fi Anthology</span>
+            <span class="ai-dur">⏱ 6 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-new">New</span>
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ── SELF-HELP ───────────────────────────────────────── -->
+    <div class="books-section">
+      <div class="section-header">
+        <h2>Self-Help &amp; Productivity</h2>
+      </div>
+      <p class="books-desc">AI narration makes niche self-help titles finally viable</p>
+      <div class="ai-grid-4">
+
+        <a href="https://www.audible.com/pd/Shadow-Work-and-the-Self-Audiobook/B0FBL8KT8J" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">🌅</div>
+          <div class="ai-body">
+            <h3>Shadow Work and the Self</h3>
+            <span class="ai-sub">AI narrated · Wellness</span>
+            <span class="ai-dur">⏱ 4 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-popular">Popular</span>
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.audible.com/pd/Amazon-KDP-Self-Publishing-Made-Easy-Audiobook/B0CW8M55WH" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">🎯</div>
+          <div class="ai-body">
+            <h3>Amazon KDP Self-Publishing Made Easy</h3>
+            <span class="ai-sub">AI narrated · Productivity</span>
+            <span class="ai-dur">⏱ 3 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.audible.com/pd/Q4-2025-The-Great-Release-Audiobook/B0D64NLQ2B" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">⏰</div>
+          <div class="ai-body">
+            <h3>Q4 2025: The Great Release</h3>
+            <span class="ai-sub">AI narrated · Tech &amp; Future</span>
+            <span class="ai-dur">⏱ 4 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-new">New</span>
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.audible.com/pd/How-To-Start-a-Business-for-Beginners-Audiobook/B0CY734PFD" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">📈</div>
+          <div class="ai-body">
+            <h3>How To Start a Business for Beginners</h3>
+            <span class="ai-sub">AI narrated · Entrepreneurship</span>
+            <span class="ai-dur">⏱ 3 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-top">Top rated</span>
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ── SCI-FI ──────────────────────────────────────────── -->
+    <div class="books-section">
+      <div class="section-header">
+        <h2>Science Fiction</h2>
+      </div>
+      <p class="books-desc">Indie sci-fi authors bringing their worlds to audio for the first time</p>
+      <div class="ai-grid-4">
+
+        <a href="https://www.audible.com/pd/Innocence-Lost-Audiobook/B0DCCL4WJD" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">🪐</div>
+          <div class="ai-body">
+            <h3>Innocence Lost</h3>
+            <span class="ai-sub">AI narrated · Space Opera</span>
+            <span class="ai-dur">⏱ 9 hrs 33 min</span>
+            <div class="ai-badges">
+              <span class="badge badge-hot">🔥 Hot</span>
+              <span class="badge badge-voice">ElevenLabs voice</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.audible.com/pd/Science-Fiction-Novels-Vol-01-Audiobook/B0CY85MFWJ" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">✨</div>
+          <div class="ai-body">
+            <h3>Science Fiction Novels Vol. 01</h3>
+            <span class="ai-sub">AI narrated · Anthology</span>
+            <span class="ai-dur">⏱ 6 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.audible.com/pd/Reactor-Science-Fiction-Thriller-Audiobook/B0GHSY86WQ" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">🔭</div>
+          <div class="ai-body">
+            <h3>Reactor: Science Fiction Thriller</h3>
+            <span class="ai-sub">AI narrated · Sci-Fi Thriller</span>
+            <span class="ai-dur">⏱ 7 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-new">New</span>
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.audible.com/pd/The-Ship-Final-Voyage-Science-Fiction-Thriller-Audiobook/B0FQV8M9NZ" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">♾️</div>
+          <div class="ai-body">
+            <h3>The Ship: Final Voyage</h3>
+            <span class="ai-sub">AI narrated · Sci-Fi Thriller</span>
+            <span class="ai-dur">⏱ 8 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-top">Top rated</span>
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ── BUSINESS & FINANCE ──────────────────────────────── -->
+    <div class="books-section">
+      <div class="section-header">
+        <h2>Business &amp; Finance</h2>
+      </div>
+      <p class="books-desc">Niche financial and business titles that finally have audio editions</p>
+      <div class="ai-grid-4">
+
+        <a href="https://www.audible.com/pd/BUSINESS-ACQUISITIONS-Audiobook/B0DDJ4JNBM" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">📊</div>
+          <div class="ai-body">
+            <h3>Business Acquisitions</h3>
+            <span class="ai-sub">AI narrated · Investing</span>
+            <span class="ai-dur">⏱ 5 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.audible.com/pd/Side-Hustle-Secrets-Audiobook/B0F1CYD1PT" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">🏗️</div>
+          <div class="ai-body">
+            <h3>Side Hustle Secrets</h3>
+            <span class="ai-sub">AI narrated · Entrepreneurship</span>
+            <span class="ai-dur">⏱ 4 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-popular">Popular</span>
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.audible.com/pd/How-To-Start-a-Business-for-Beginners-Audiobook/B0CY734PFD" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">🧮</div>
+          <div class="ai-body">
+            <h3>How To Start a Business for Beginners</h3>
+            <span class="ai-sub">AI narrated · Entrepreneurship</span>
+            <span class="ai-dur">⏱ 3 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-new">New</span>
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.audible.com/pd/Virtual-Voice-Audible-Millionaire-Audiobook/B0CZ7KBKK9" class="ai-card-lg" target="_blank" rel="noopener">
+          <div class="ai-cover-lg">🎨</div>
+          <div class="ai-body">
+            <h3>Virtual Voice Audible Millionaire</h3>
+            <span class="ai-sub">AI narrated · Publishing &amp; Income</span>
+            <span class="ai-dur">⏱ 4 hrs</span>
+            <div class="ai-badges">
+              <span class="badge badge-voice">Virtual Voice</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ── QUALITY NOTE ────────────────────────────────────── -->
+    <div class="ai-quality-note">
+      <strong>📌 A note on AI narration quality</strong><br>
+      Voice engines vary widely. Our picks use top-tier synthesis (primarily ElevenLabs and Amazon Virtual Voice). Lower-quality AI narration can feel robotic — if a title isn't listed here, that's often why. We only feature titles where the listening experience is genuinely enjoyable.
+    </div>
+
+    <!-- ── SUBMIT FORM ─────────────────────────────────────── -->
+    <div class="section">
+      <div class="submit-box">
+        <div class="submit-header">
+          <div class="submit-header-icon" style="background:var(--purple-light);">⚙</div>
+          <div>
+            <h3>Know an AI audiobook worth featuring?</h3>
+            <p>Submit it — we review all submissions every Monday and add approved titles the same week</p>
+          </div>
+        </div>
+        <form class="submit-form">
+          <div class="form-field">
+            <label class="form-label" for="title">Book title <span style="color:var(--teal-mid)">*</span></label>
+            <input class="form-input" id="title" name="title" type="text" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="url">Where to find it <span style="color:var(--teal-mid)">*</span></label>
+            <input class="form-input" id="url" name="url" type="url" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="engine">AI voice engine</label>
+            <select class="form-select" id="engine" name="engine">
+              <option value="">Not sure</option>
+              <option value="elevenlabs">ElevenLabs</option>
+              <option value="openai">OpenAI TTS</option>
+              <option value="virtual-voice">Amazon Virtual Voice</option>
+              <option value="google">Google WaveNet</option>
+              <option value="polly">Amazon Polly</option>
+              <option value="other">Other / Unknown</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="genre">Genre</label>
+            <select class="form-select" id="genre" name="genre">
+              <option value="">Select genre…</option>
+              <option value="self-help">Self-Help / Wellness</option>
+              <option value="sci-fi">Science Fiction</option>
+              <option value="fantasy">Fantasy</option>
+              <option value="business">Business / Finance</option>
+              <option value="history">History / Biography</option>
+              <option value="romance">Romance</option>
+              <option value="mystery">Mystery / Thriller</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="email">Your email (optional)</label>
+            <input class="form-input" id="email" name="email" type="email" />
+          </div>
+          <div class="form-field full">
+            <label class="form-label" for="reason">Why should we feature it? <span style="color:var(--teal-mid)">*</span></label>
+            <textarea class="form-textarea" id="reason" name="reason" required></textarea>
+          </div>
+        </form>
+        <div class="submit-footer">
+          <span class="submit-note">📅 Reviewed every Monday · Approved titles go live same week</span>
+          <button class="btn btn-primary btn-sm" type="submit">Submit title</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+</main>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-copy">© 2026 Audiobooks.org · Affiliate links help keep this site free</span>
+      <nav class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
