@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audiobook Bestsellers — Audiobooks.org</title>
+  <link rel="canonical" href="https://audiobooks.org/bestsellers.html" />
+  <meta name="description" content="Live audiobook bestseller charts — NYT, Audible, PopVortex, LibriVox, and Project Gutenberg. Updated daily." />
+  <meta property="og:title" content="Audiobook Bestsellers — Audiobooks.org" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://audiobooks.org/bestsellers.html" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .chart-list { display: none; }
+    .chart-list.active { display: block; }
+    .ctab { cursor: pointer; }
+    /* AI row highlight */
+    .ai-row { background: #f9f8ff; }
+    .badge-ai {
+      background: var(--purple-light);
+      color: var(--purple-dark);
+      border: 1px solid var(--purple-mid);
+    }
+    .badge-free { background: var(--teal-light); color: var(--teal-dark); }
+    .badge-source { background: var(--bg-off); color: var(--text-muted); border: 1px solid var(--border); }
+    .chart-jump {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin: 24px 0 8px;
+    }
+    .chart-jump a {
+      font-size: 0.8rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 20px;
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+      transition: all 0.12s;
+    }
+    .chart-jump a:hover {
+      background: var(--teal-light);
+      border-color: var(--teal-mid);
+      color: var(--teal-dark);
+    }
+    .ai-legend {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; color: var(--purple-dark);
+      background: var(--purple-light);
+      padding: 6px 14px; border-radius: 20px;
+      border: 1px solid var(--purple-mid);
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/index.html" class="nav-logo" aria-label="Audiobooks.org home">
+        <div class="nav-logo-icon" aria-hidden="true">🎧</div>
+        <span><span>Audio</span>books.org</span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="/index.html"          class="nav-link">Home</a>
+        <a href="/paid-platforms.html" class="nav-link">Paid platforms</a>
+        <a href="/free-sources.html"   class="nav-link">Free sources</a>
+        <a href="/ai-audiobooks.html"  class="nav-link">AI picks</a>
+        <a href="/bestsellers.html"    class="nav-link active" aria-current="page">Bestsellers</a>
+      </div>
+      <a href="/paid-platforms.html#audible" class="btn btn-primary nav-cta">Start listening</a>
+      <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"
+        onclick="const l=document.getElementById('nav-links');const o=l.classList.toggle('open');this.setAttribute('aria-expanded',o);">☰</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero amber">
+  <div class="container">
+    <span class="badge badge-amber" style="margin-bottom:12px;display:inline-block;">📊 Live charts</span>
+    <h1>Audiobook Bestsellers</h1>
+    <p>Six charts updated daily — NYT, Audible, PopVortex, LibriVox, Project Gutenberg, and Gutenberg AI. Paid and free, all in one place.</p>
+    <div class="ai-legend">⚙ AI narrated badge marks synthetic-voice titles in paid charts</div>
+  </div>
+</div>
+
+<main id="main">
+  <div class="container">
+
+    <div class="disclosure" style="margin-top:24px;">
+      ℹ️ <strong>Affiliate disclosure:</strong> Paid chart links earn a small commission at no extra cost to you. Free chart links earn nothing — we include them because they're genuinely great.
+    </div>
+
+    <!-- Jump links -->
+    <div class="chart-jump">
+      <a href="#audible">Audible</a>
+      <a href="#nyt">NYT</a>
+      <a href="#popvortex">PopVortex</a>
+      <a href="#librivox">LibriVox 🔓</a>
+      <a href="#gutenberg">Gutenberg 🔓</a>
+      <a href="#gutenberg-ai">Gutenberg AI 🔓</a>
+    </div>
+
+    <div class="section-header" style="margin-top:8px;">
+      <div>
+        <h2>📊 All charts</h2>
+        <p class="section-meta">Auto-updated daily via GitHub Actions · Last updated June 01, 2026</p>
+      </div>
+    </div>
+
+    
+    <div class="chart-wrap" id="audible">
+      <div class="chart-header">
+        <div class="chart-source"><span class="chart-logo logo-amazon">AUDIBLE</span><span class="chart-date">Via NYT · June 01, 2026 · ⚙ = AI narrated</span></div>
+        <div class="chart-tabs"><div class="ctab active" onclick="switchTab(this,'aud-fiction')">Fiction</div>
+<div class="ctab " onclick="switchTab(this,'aud-nonfiction')">Nonfiction</div>
+</div>
+      </div>
+      <div class="chart-list active" id="aud-fiction"><div class="book-row"><div class="book-info"><h4>Data unavailable — will retry on next update</h4></div></div><div class="chart-note">Updated June 01, 2026</div></div>
+<div class="chart-list " id="aud-nonfiction"><div class="book-row"><div class="book-info"><h4>Data unavailable — will retry on next update</h4></div></div><div class="chart-note">Updated June 01, 2026</div></div>
+
+    </div>
+    <div style="height:24px;"></div>
+    
+    <div class="chart-wrap" id="nyt">
+      <div class="chart-header">
+        <div class="chart-source"><span class="chart-logo logo-nyt">NYT</span><span class="chart-date">New York Times · June 01, 2026</span></div>
+        <div class="chart-tabs"><div class="ctab active" onclick="switchTab(this,'nyt-fiction')">Fiction</div>
+<div class="ctab " onclick="switchTab(this,'nyt-nonfiction')">Nonfiction</div>
+</div>
+      </div>
+      <div class="chart-list active" id="nyt-fiction"><div class="book-row"><div class="book-info"><h4>Data unavailable — will retry on next update</h4></div></div><div class="chart-note">Updated June 01, 2026</div></div>
+<div class="chart-list " id="nyt-nonfiction"><div class="book-row"><div class="book-info"><h4>Data unavailable — will retry on next update</h4></div></div><div class="chart-note">Updated June 01, 2026</div></div>
+
+    </div>
+    <div style="height:24px;"></div>
+    
+    <div class="chart-wrap" id="popvortex">
+      <div class="chart-header">
+        <div class="chart-source"><span class="chart-logo" style="background:#e8f4fd;color:#0a6ebd;">PopVortex</span><span class="chart-date">Audible + Apple aggregated · June 01, 2026</span></div>
+        <div class="chart-tabs"><div class="ctab active" onclick="switchTab(this,'pv-top')">Top Audiobooks</div>
+</div>
+      </div>
+      <div class="chart-list active" id="pv-top"><div class="book-row"><div class="book-info"><h4>Data unavailable — will retry on next update</h4></div></div><div class="chart-note">Updated June 01, 2026</div></div>
+
+    </div>
+    <div style="height:24px;"></div>
+    
+    <div class="chart-wrap" id="librivox">
+      <div class="chart-header">
+        <div class="chart-source"><span class="chart-logo" style="background:#e1f5ee;color:#085041;">LibriVox</span><span class="chart-date">Recently added · June 01, 2026 · Free, no account needed</span></div>
+        <div class="chart-tabs"><div class="ctab active" onclick="switchTab(this,'lv-latest')">Latest Titles</div>
+</div>
+      </div>
+      <div class="chart-list active" id="lv-latest"><div class="book-row"><div class="book-info"><h4>Data unavailable — will retry on next update</h4></div></div><div class="chart-note">Updated June 01, 2026</div></div>
+
+    </div>
+    <div style="height:24px;"></div>
+    
+    <div class="chart-wrap" id="gutenberg">
+      <div class="chart-header">
+        <div class="chart-source"><span class="chart-logo" style="background:#eeedfe;color:#3c3489;">Gutenberg</span><span class="chart-date">Most downloaded ebooks · June 01, 2026 · Free public domain</span></div>
+        <div class="chart-tabs"><div class="ctab active" onclick="switchTab(this,'gut-top')">Most Downloaded</div>
+</div>
+      </div>
+      <div class="chart-list active" id="gut-top"><div class="book-row"><div class="book-info"><h4>Data unavailable — will retry on next update</h4></div></div><div class="chart-note">Updated June 01, 2026</div></div>
+
+    </div>
+    <div style="height:24px;"></div>
+    
+    <div class="chart-wrap" id="gutenberg-ai">
+      <div class="chart-header">
+        <div class="chart-source"><span class="chart-logo" style="background:#eeedfe;color:#3c3489;">Gutenberg AI</span><span class="chart-date">Microsoft Neural TTS · Free · No account needed</span></div>
+        <div class="chart-tabs"><div class="ctab active" onclick="switchTab(this,'gut-ai')">AI Narrated Classics</div>
+</div>
+      </div>
+      <div class="chart-list active" id="gut-ai">
+        <div class="book-row">
+          <div class="book-rank top">1</div>
+          <div class="book-thumb">🥇</div>
+          <div class="book-info">
+            <h4>Frankenstein</h4>
+            <p>Mary Shelley</p>
+            <div class="book-tags"><span class="badge badge-hot">🔥 #1</span><span class="badge badge-source">~8 hrs</span><span class="badge badge-free">Free</span></div>
+          </div>
+          <a href="https://archive.org/details/synapseml_gutenberg_frankenstein_by_mary_wollstonecraft_she" target="_blank" rel="noopener" class="book-link">Listen ↗</a>
+        </div>
+        <div class="book-row">
+          <div class="book-rank top">2</div>
+          <div class="book-thumb">🥈</div>
+          <div class="book-info">
+            <h4>Dracula</h4>
+            <p>Bram Stoker</p>
+            <div class="book-tags"><span class="badge badge-source">~16 hrs</span><span class="badge badge-free">Free</span></div>
+          </div>
+          <a href="https://archive.org/details/synapseml_gutenberg_dracula_by_bram_stoker" target="_blank" rel="noopener" class="book-link">Listen ↗</a>
+        </div>
+        <div class="book-row">
+          <div class="book-rank top">3</div>
+          <div class="book-thumb">🥉</div>
+          <div class="book-info">
+            <h4>Pride and Prejudice</h4>
+            <p>Jane Austen</p>
+            <div class="book-tags"><span class="badge badge-source">~12 hrs</span><span class="badge badge-free">Free</span></div>
+          </div>
+          <a href="https://archive.org/details/synapseml_gutenberg_pride_and_prejudice_by_jane_austen" target="_blank" rel="noopener" class="book-link">Listen ↗</a>
+        </div>
+        <div class="book-row">
+          <div class="book-rank ">4</div>
+          <div class="book-thumb">4️⃣</div>
+          <div class="book-info">
+            <h4>The Picture of Dorian Gray</h4>
+            <p>Oscar Wilde</p>
+            <div class="book-tags"><span class="badge badge-source">~9 hrs</span><span class="badge badge-free">Free</span></div>
+          </div>
+          <a href="https://archive.org/details/synapseml_gutenberg_the_picture_of_dorian_gray_by_oscar_wi" target="_blank" rel="noopener" class="book-link">Listen ↗</a>
+        </div>
+        <div class="book-row">
+          <div class="book-rank ">5</div>
+          <div class="book-thumb">5️⃣</div>
+          <div class="book-info">
+            <h4>The Call of the Wild</h4>
+            <p>Jack London</p>
+            <div class="book-tags"><span class="badge badge-source">~3 hrs</span><span class="badge badge-free">Free</span></div>
+          </div>
+          <a href="https://archive.org/details/synapseml_gutenberg_the_call_of_the_wild_by_jack_london" target="_blank" rel="noopener" class="book-link">Listen ↗</a>
+        </div>
+        <div class="book-row">
+          <div class="book-rank ">6</div>
+          <div class="book-thumb">6️⃣</div>
+          <div class="book-info">
+            <h4>Romeo and Juliet</h4>
+            <p>William Shakespeare</p>
+            <div class="book-tags"><span class="badge badge-source">~2 hrs</span><span class="badge badge-free">Free</span></div>
+          </div>
+          <a href="https://archive.org/details/synapseml_gutenberg_romeo_and_juliet_by_william_shakespeare" target="_blank" rel="noopener" class="book-link">Listen ↗</a>
+        </div>
+        <div class="book-row">
+          <div class="book-rank ">7</div>
+          <div class="book-thumb">7️⃣</div>
+          <div class="book-info">
+            <h4>Moby Dick</h4>
+            <p>Herman Melville</p>
+            <div class="book-tags"><span class="badge badge-source">~24 hrs</span><span class="badge badge-free">Free</span></div>
+          </div>
+          <a href="https://archive.org/details/synapseml_gutenberg_moby_dick_by_herman_melville" target="_blank" rel="noopener" class="book-link">Listen ↗</a>
+        </div>
+        <div class="book-row">
+          <div class="book-rank ">8</div>
+          <div class="book-thumb">8️⃣</div>
+          <div class="book-info">
+            <h4>Alice's Adventures in Wonderland</h4>
+            <p>Lewis Carroll</p>
+            <div class="book-tags"><span class="badge badge-source">~3 hrs</span><span class="badge badge-free">Free</span></div>
+          </div>
+          <a href="https://archive.org/details/synapseml_gutenberg_alice_s_adventures_in_wonderland_by_lewi" target="_blank" rel="noopener" class="book-link">Listen ↗</a>
+        </div>
+        <div class="book-row">
+          <div class="book-rank ">9</div>
+          <div class="book-thumb">9️⃣</div>
+          <div class="book-info">
+            <h4>The Scarlet Letter</h4>
+            <p>Nathaniel Hawthorne</p>
+            <div class="book-tags"><span class="badge badge-source">~8 hrs</span><span class="badge badge-free">Free</span></div>
+          </div>
+          <a href="https://archive.org/details/synapseml_gutenberg_the_scarlet_letter_by_nathaniel_hawthorne" target="_blank" rel="noopener" class="book-link">Listen ↗</a>
+        </div>
+        <div class="book-row">
+          <div class="book-rank ">10</div>
+          <div class="book-thumb">🔟</div>
+          <div class="book-info">
+            <h4>The Yellow Wallpaper</h4>
+            <p>Charlotte Perkins Gilman</p>
+            <div class="book-tags"><span class="badge badge-source">~1 hr</span><span class="badge badge-free">Free</span></div>
+          </div>
+          <a href="https://archive.org/details/synapseml_gutenberg_the_yellow_wallpaper_by_charlotte_perkins" target="_blank" rel="noopener" class="book-link">Listen ↗</a>
+        </div><div class="chart-note">Updated June 01, 2026</div></div>
+
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-copy">© 2026 Audiobooks.org · Affiliate links help keep this site free · Charts updated June 01, 2026</span>
+      <nav class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function switchTab(clickedTab, targetId) {
+    const wrap = clickedTab.closest('.chart-wrap');
+    wrap.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+    wrap.querySelectorAll('.chart-list').forEach(l => l.classList.remove('active'));
+    clickedTab.classList.add('active');
+    document.getElementById(targetId).classList.add('active');
+  }
+</script>
+</body>
+</html>
