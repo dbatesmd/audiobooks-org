@@ -292,7 +292,15 @@ def build_html(data):
   <title>Audiobook Bestsellers — Audiobooks.org</title>
   <link rel="canonical" href="https://audiobooks.org/bestsellers.html" />
   <meta name="description" content="Live audiobook bestseller charts — NYT, Audible, PopVortex, LibriVox, and Gutenberg AI. Updated daily." />
-  <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/styles.css" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7YCXGE0S34"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', 'G-7YCXGE0S34');
+  </script>
   <style>
     .chart-list {{ display: none; }}
     .chart-list.active {{ display: block; }}
