@@ -6,9 +6,8 @@ rebuilds bestsellers.html for Audiobooks.org
 
 Sources:
   - NYT Books API (audio-fiction + audio-nonfiction)
-  - PopVortex (Audible + Apple aggregated chart)
+  - PopVortex (Apple iTunes aggregated chart)
   - LibriVox API (most popular free audiobooks)
-  - Project Gutenberg top downloads
   - Project Gutenberg AI audiobooks (Microsoft/MIT curated)
 
 Run locally:   NYT_API_KEY=your_key python3 scripts/update_bestsellers.py
@@ -16,7 +15,7 @@ GitHub Action: NYT_API_KEY is stored as a repo secret
 """
 
 import os
-import json
+import re
 import datetime
 import requests
 from bs4 import BeautifulSoup
@@ -41,7 +40,7 @@ AI_ASINS = {
 # ── Data fetchers ────────────────────────────────────────────────────
 
 def fetch_nyt(list_name):
-    """Fetch a NYT audiobook bestseller list. Returns list of book dicts."""
+    """Fetch a NYT audiobook bestseller list."""
     if not NYT_API_KEY:
         print("  [skip] No NYT_API_KEY set")
         return []
@@ -53,22 +52,18 @@ def fetch_nyt(list_name):
         out = []
         for b in books[:10]:
             asin = ""
-            amazon_url = b.get("amazon_product_url", "")
-            # Extract ASIN from Amazon URL
-            import re
-            m = re.search(r"/([A-Z0-9]{10})(?:[/?]|$)", amazon_url)
+            m = re.search(r"/([A-Z0-9]{10})(?:[/?]|$)", b.get("amazon_product_url", ""))
             if m:
                 asin = m.group(1)
-            audible_url = f"https://www.audible.com/search?tag={AFFILIATE_TAG}&keywords={requests.utils.quote(b.get('title',''))}"
+            link = f"https://www.audible.com/search?tag={AFFILIATE_TAG}&keywords={requests.utils.quote(b.get('title', ''))}"
             out.append({
-                "rank":         b.get("rank", 0),
-                "title":        b.get("title", ""),
-                "author":       b.get("author", ""),
-                "description":  b.get("description", ""),
-                "weeks":        b.get("weeks_on_list", 0),
-                "asin":         asin,
-                "link":         audible_url,
-                "ai":           asin in AI_ASINS,
+                "rank":   b.get("rank", 0),
+                "title":  b.get("title", ""),
+                "author": b.get("author", ""),
+                "weeks":  b.get("weeks_on_list", 0),
+                "asin":   asin,
+                "link":   link,
+                "ai":     asin in AI_ASINS,
             })
         return out
     except Exception as e:
@@ -77,33 +72,58 @@ def fetch_nyt(list_name):
 
 
 def fetch_popvortex():
-    """Scrape PopVortex top audiobooks chart."""
+    """Scrape PopVortex top audiobooks — parses cover image alt text."""
     url = "https://www.popvortex.com/books/charts/best-selling-audiobooks.php"
     try:
         r = requests.get(url, timeout=15, headers=HEADERS)
         soup = BeautifulSoup(r.text, "html.parser")
         books = []
-        # Try multiple possible selectors
-        items = (soup.select(".mli") or
-                 soup.select("li.mli") or
-                 soup.select(".chart-item") or
-                 soup.select("ol li"))
-        for i, item in enumerate(items[:10]):
-            title_el  = (item.select_one(".title") or
-                         item.select_one("cite") or
-                         item.select_one("h4"))
-            artist_el = (item.select_one(".artist") or
-                         item.select_one(".author") or
-                         item.select_one("em"))
-            link_el   = item.select_one("a[href]")
-            title  = title_el.get_text(strip=True)  if title_el  else f"Title #{i+1}"
-            author = artist_el.get_text(strip=True) if artist_el else ""
-            link   = link_el["href"]                if link_el   else "#"
-            # Append affiliate tag if it's an Audible link
-            if "audible.com" in link and "tag=" not in link:
-                sep = "&" if "?" in link else "?"
-                link += f"{sep}tag={AFFILIATE_TAG}"
-            books.append({"rank": i+1, "title": title, "author": author, "link": link, "ai": False})
+
+        # Each entry has a cover image with alt="Title - Author Cover Art"
+        imgs = soup.find_all("img", alt=lambda x: x and "Cover Art" in x)
+
+        for i, img in enumerate(imgs[:10]):
+            alt = img.get("alt", "").replace(" Cover Art", "").strip()
+            # Format is "Title - Author" (author is last segment after " - ")
+            if " - " in alt:
+                parts = alt.rsplit(" - ", 1)
+                title  = parts[0].strip()
+                author = parts[1].strip()
+            else:
+                title  = alt
+                author = ""
+
+            # Walk up DOM to find links near this entry
+            parent = img.parent
+            audible_link = apple_link = None
+            for _ in range(8):
+                if parent is None:
+                    break
+                audible_link = parent.find("a", href=lambda x: x and "amazon.com" in x)
+                apple_link   = parent.find("a", href=lambda x: x and "apple.com" in x)
+                if audible_link or apple_link:
+                    break
+                parent = parent.parent
+
+            # Build Audible search link with our tag
+            link = "#"
+            if audible_link:
+                kw = re.search(r"keywords=([^&]+)", audible_link["href"])
+                if kw:
+                    link = f"https://www.audible.com/search?tag={AFFILIATE_TAG}&keywords={kw.group(1)}"
+            elif apple_link:
+                link = apple_link["href"]
+            else:
+                link = f"https://www.audible.com/search?tag={AFFILIATE_TAG}&keywords={requests.utils.quote(title + ' ' + author)}"
+
+            books.append({
+                "rank":   i + 1,
+                "title":  title,
+                "author": author,
+                "link":   link,
+                "ai":     False,
+            })
+
         return books
     except Exception as e:
         print(f"  [error] PopVortex: {e}")
@@ -111,28 +131,26 @@ def fetch_popvortex():
 
 
 def fetch_librivox():
-    """Fetch LibriVox popular audiobooks via their API."""
+    """Fetch LibriVox recently added audiobooks via their API."""
     url = "https://librivox.org/api/feed/audiobooks"
     params = {
         "fields": "id,title,url_librivox,totaltime,authors",
-        "sort_order": "catalog_date",  # most recent as proxy for popular
+        "sort_order": "catalog_date",
         "limit": "10",
         "format": "json",
     }
     try:
         r = requests.get(url, params=params, timeout=15, headers=HEADERS)
         data = r.json()
-        books = data.get("books", [])
         out = []
-        for i, b in enumerate(books):
+        for i, b in enumerate(data.get("books", [])):
             authors = b.get("authors", [{}])
             fn = authors[0].get("first_name", "") if authors else ""
             ln = authors[0].get("last_name", "")  if authors else ""
-            author = f"{fn} {ln}".strip()
             out.append({
                 "rank":     i + 1,
                 "title":    b.get("title", ""),
-                "author":   author,
+                "author":   f"{fn} {ln}".strip(),
                 "duration": b.get("totaltime", ""),
                 "link":     b.get("url_librivox", "#"),
             })
@@ -142,70 +160,43 @@ def fetch_librivox():
         return []
 
 
-def fetch_gutenberg():
-    """Scrape Project Gutenberg top downloads page."""
-    url = "https://www.gutenberg.org/browse/scores/top"
-    try:
-        r = requests.get(url, timeout=15, headers=HEADERS)
-        soup = BeautifulSoup(r.text, "html.parser")
-        books = []
-        # The page has an ordered list of top ebooks
-        ol = soup.find("ol")
-        if ol:
-            for i, li in enumerate(ol.find_all("li")[:10]):
-                a = li.find("a")
-                if a:
-                    href = a.get("href", "")
-                    full_url = ("https://www.gutenberg.org" + href
-                                if href.startswith("/") else href)
-                    books.append({
-                        "rank":  i + 1,
-                        "title": a.get_text(strip=True),
-                        "link":  full_url,
-                    })
-        return books
-    except Exception as e:
-        print(f"  [error] Gutenberg: {e}")
-        return []
-
-
 def get_gutenberg_ai():
-    """Curated list of top Gutenberg AI audiobooks (Microsoft/MIT collection).
-    Ordered by Gutenberg download popularity. Update as new titles emerge."""
+    """Curated top Gutenberg AI audiobooks (Microsoft/MIT), ordered by Gutenberg popularity."""
     return [
-        {"rank": 1,  "title": "Frankenstein",                    "author": "Mary Shelley",           "duration": "~8 hrs",  "link": "https://archive.org/details/synapseml_gutenberg_frankenstein_by_mary_wollstonecraft_she"},
-        {"rank": 2,  "title": "Dracula",                          "author": "Bram Stoker",             "duration": "~16 hrs", "link": "https://archive.org/details/synapseml_gutenberg_dracula_by_bram_stoker"},
-        {"rank": 3,  "title": "Pride and Prejudice",              "author": "Jane Austen",             "duration": "~12 hrs", "link": "https://archive.org/details/synapseml_gutenberg_pride_and_prejudice_by_jane_austen"},
-        {"rank": 4,  "title": "The Picture of Dorian Gray",       "author": "Oscar Wilde",             "duration": "~9 hrs",  "link": "https://archive.org/details/synapseml_gutenberg_the_picture_of_dorian_gray_by_oscar_wi"},
-        {"rank": 5,  "title": "The Call of the Wild",             "author": "Jack London",             "duration": "~3 hrs",  "link": "https://archive.org/details/synapseml_gutenberg_the_call_of_the_wild_by_jack_london"},
-        {"rank": 6,  "title": "Romeo and Juliet",                 "author": "William Shakespeare",     "duration": "~2 hrs",  "link": "https://archive.org/details/synapseml_gutenberg_romeo_and_juliet_by_william_shakespeare"},
-        {"rank": 7,  "title": "Moby Dick",                        "author": "Herman Melville",         "duration": "~24 hrs", "link": "https://archive.org/details/synapseml_gutenberg_moby_dick_by_herman_melville"},
-        {"rank": 8,  "title": "Alice's Adventures in Wonderland", "author": "Lewis Carroll",           "duration": "~3 hrs",  "link": "https://archive.org/details/synapseml_gutenberg_alice_s_adventures_in_wonderland_by_lewi"},
-        {"rank": 9,  "title": "The Scarlet Letter",               "author": "Nathaniel Hawthorne",     "duration": "~8 hrs",  "link": "https://archive.org/details/synapseml_gutenberg_the_scarlet_letter_by_nathaniel_hawthorne"},
-        {"rank": 10, "title": "The Yellow Wallpaper",             "author": "Charlotte Perkins Gilman","duration": "~1 hr",   "link": "https://archive.org/details/synapseml_gutenberg_the_yellow_wallpaper_by_charlotte_perkins"},
+        {"rank": 1,  "title": "Frankenstein",                    "author": "Mary Shelley",            "duration": "~8 hrs",  "link": "https://archive.org/details/synapseml_gutenberg_frankenstein_by_mary_wollstonecraft_she"},
+        {"rank": 2,  "title": "Dracula",                          "author": "Bram Stoker",              "duration": "~16 hrs", "link": "https://archive.org/details/synapseml_gutenberg_dracula_by_bram_stoker"},
+        {"rank": 3,  "title": "Pride and Prejudice",              "author": "Jane Austen",              "duration": "~12 hrs", "link": "https://archive.org/details/synapseml_gutenberg_pride_and_prejudice_by_jane_austen"},
+        {"rank": 4,  "title": "The Picture of Dorian Gray",       "author": "Oscar Wilde",              "duration": "~9 hrs",  "link": "https://archive.org/details/synapseml_gutenberg_the_picture_of_dorian_gray_by_oscar_wi"},
+        {"rank": 5,  "title": "The Call of the Wild",             "author": "Jack London",              "duration": "~3 hrs",  "link": "https://archive.org/details/synapseml_gutenberg_the_call_of_the_wild_by_jack_london"},
+        {"rank": 6,  "title": "Romeo and Juliet",                 "author": "William Shakespeare",      "duration": "~2 hrs",  "link": "https://archive.org/details/synapseml_gutenberg_romeo_and_juliet_by_william_shakespeare"},
+        {"rank": 7,  "title": "Moby Dick",                        "author": "Herman Melville",          "duration": "~24 hrs", "link": "https://archive.org/details/synapseml_gutenberg_moby_dick_by_herman_melville"},
+        {"rank": 8,  "title": "Alice's Adventures in Wonderland", "author": "Lewis Carroll",            "duration": "~3 hrs",  "link": "https://archive.org/details/synapseml_gutenberg_alice_s_adventures_in_wonderland_by_lewi"},
+        {"rank": 9,  "title": "The Scarlet Letter",               "author": "Nathaniel Hawthorne",      "duration": "~8 hrs",  "link": "https://archive.org/details/synapseml_gutenberg_the_scarlet_letter_by_nathaniel_hawthorne"},
+        {"rank": 10, "title": "The Yellow Wallpaper",             "author": "Charlotte Perkins Gilman", "duration": "~1 hr",   "link": "https://archive.org/details/synapseml_gutenberg_the_yellow_wallpaper_by_charlotte_perkins"},
     ]
+
 
 # ── HTML builders ────────────────────────────────────────────────────
 
-EMOJI_MAP = ["🥇","🥈","🥉","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟"]
+EMOJI = ["🥇","🥈","🥉","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟"]
 
-def book_row_html(book, show_ai_badge=True, show_weeks=False, show_duration=False, show_free=False):
-    rank    = book.get("rank", 0)
-    title   = book.get("title", "")
-    author  = book.get("author", "")
-    link    = book.get("link", "#")
-    ai      = book.get("ai", False)
-    weeks   = book.get("weeks", 0)
-    duration= book.get("duration", "")
-    top3    = "top" if rank <= 3 else ""
+def book_row_html(book, show_ai=True, show_weeks=False, show_duration=False, show_free=False):
+    rank     = book.get("rank", 0)
+    title    = book.get("title", "")
+    author   = book.get("author", "")
+    link     = book.get("link", "#")
+    ai       = book.get("ai", False)
+    weeks    = book.get("weeks", 0)
+    duration = book.get("duration", "")
+    top3     = "top" if rank <= 3 else ""
+    emoji    = EMOJI[rank - 1] if 1 <= rank <= 10 else str(rank)
 
-    ai_badge   = '<span class="badge badge-ai">⚙ AI narrated</span>' if (ai and show_ai_badge) else ""
-    hot_badge  = '<span class="badge badge-hot">🔥 #1</span>'        if rank == 1 else ""
-    weeks_tag  = f'<span class="badge badge-classic">{weeks} wks on list</span>' if (show_weeks and weeks > 1) else ""
-    dur_tag    = f'<span class="badge badge-source">{duration}</span>' if (show_duration and duration) else ""
-    free_badge = '<span class="badge badge-free">Free</span>'         if show_free else ""
-
-    emoji = EMOJI_MAP[rank - 1] if rank <= 10 else str(rank)
+    badges = ""
+    if rank == 1:               badges += '<span class="badge badge-hot">🔥 #1</span>'
+    if ai and show_ai:          badges += '<span class="badge badge-ai">⚙ AI narrated</span>'
+    if show_weeks and weeks > 1:badges += f'<span class="badge badge-classic">{weeks} wks on list</span>'
+    if show_duration and duration: badges += f'<span class="badge badge-source">{duration}</span>'
+    if show_free:               badges += '<span class="badge badge-free">Free</span>'
 
     return f"""
         <div class="book-row{' ai-row' if ai else ''}">
@@ -214,23 +205,22 @@ def book_row_html(book, show_ai_badge=True, show_weeks=False, show_duration=Fals
           <div class="book-info">
             <h4>{title}</h4>
             <p>{author}</p>
-            <div class="book-tags">{hot_badge}{ai_badge}{weeks_tag}{dur_tag}{free_badge}</div>
+            <div class="book-tags">{badges}</div>
           </div>
           <a href="{link}" target="_blank" rel="noopener" class="book-link">Listen ↗</a>
         </div>"""
 
 
 def chart_section(section_id, logo_html, date_str, tabs):
-    """
-    tabs: list of (tab_label, tab_id, books, kwargs)
-    kwargs passed to book_row_html
-    """
     tab_headers = ""
     tab_contents = ""
     for i, (label, tid, books, kwargs) in enumerate(tabs):
         active = "active" if i == 0 else ""
         tab_headers += f'<div class="ctab {active}" onclick="switchTab(this,\'{tid}\')">{label}</div>\n'
-        rows = "".join(book_row_html(b, **kwargs) for b in books) if books else '<div class="book-row"><div class="book-info"><h4>Data unavailable — will retry on next update</h4></div></div>'
+        if books:
+            rows = "".join(book_row_html(b, **kwargs) for b in books)
+        else:
+            rows = '<div class="book-row"><div class="book-info"><h4>Data unavailable — will retry on next update</h4></div></div>'
         tab_contents += f'<div class="chart-list {active}" id="{tid}">{rows}<div class="chart-note">Updated {TODAY}</div></div>\n'
 
     return f"""
@@ -244,69 +234,52 @@ def chart_section(section_id, logo_html, date_str, tabs):
 
 
 def build_html(data):
-    nyt_fiction    = data["nyt_fiction"]
-    nyt_nonfiction = data["nyt_nonfiction"]
-    popvortex      = data["popvortex"]
-    librivox       = data["librivox"]
-    gutenberg      = data["gutenberg"]
-    gutenberg_ai   = data["gutenberg_ai"]
+    nyt_f   = data["nyt_fiction"]
+    nyt_nf  = data["nyt_nonfiction"]
+    pv      = data["popvortex"]
+    lv      = data["librivox"]
+    gut_ai  = data["gutenberg_ai"]
 
-    # Count AI books across all paid lists
-    ai_count = sum(1 for b in nyt_fiction + nyt_nonfiction + popvortex if b.get("ai"))
-
-    audible_section = chart_section(
+    audible_sec = chart_section(
         "audible",
         '<span class="chart-logo logo-amazon">AUDIBLE</span>',
-        f"Via NYT · {TODAY} · ⚙ = AI narrated",
+        f"Via NYT Books API · {TODAY} · ⚙ = AI narrated",
         [
-            ("Fiction",    "aud-fiction",    nyt_fiction,    {"show_ai_badge": True, "show_weeks": True}),
-            ("Nonfiction", "aud-nonfiction", nyt_nonfiction, {"show_ai_badge": True, "show_weeks": True}),
+            ("Fiction",    "aud-f",  nyt_f,  {"show_ai": True,  "show_weeks": True}),
+            ("Nonfiction", "aud-nf", nyt_nf, {"show_ai": True,  "show_weeks": True}),
         ]
     )
-
-    popvortex_section = chart_section(
-        "popvortex",
-        '<span class="chart-logo" style="background:#e8f4fd;color:#0a6ebd;">PopVortex</span>',
-        f"Audible + Apple aggregated · {TODAY}",
-        [
-            ("Top Audiobooks", "pv-top", popvortex, {"show_ai_badge": False}),
-        ]
-    )
-
-    nyt_section = chart_section(
+    nyt_sec = chart_section(
         "nyt",
         '<span class="chart-logo logo-nyt">NYT</span>',
         f"New York Times · {TODAY}",
         [
-            ("Fiction",    "nyt-fiction",    nyt_fiction,    {"show_ai_badge": True, "show_weeks": True}),
-            ("Nonfiction", "nyt-nonfiction", nyt_nonfiction, {"show_ai_badge": True, "show_weeks": True}),
+            ("Fiction",    "nyt-f",  nyt_f,  {"show_ai": True,  "show_weeks": True}),
+            ("Nonfiction", "nyt-nf", nyt_nf, {"show_ai": True,  "show_weeks": True}),
         ]
     )
-
-    librivox_section = chart_section(
+    pv_sec = chart_section(
+        "popvortex",
+        '<span class="chart-logo" style="background:#e8f4fd;color:#0a6ebd;">PopVortex</span>',
+        f"Apple iTunes chart · {TODAY}",
+        [
+            ("Top Audiobooks", "pv-top", pv, {"show_ai": False}),
+        ]
+    )
+    lv_sec = chart_section(
         "librivox",
         '<span class="chart-logo" style="background:#e1f5ee;color:#085041;">LibriVox</span>',
         f"Recently added · {TODAY} · Free, no account needed",
         [
-            ("Latest Titles", "lv-latest", librivox, {"show_ai_badge": False, "show_duration": True, "show_free": True}),
+            ("Latest Titles", "lv-top", lv, {"show_ai": False, "show_duration": True, "show_free": True}),
         ]
     )
-
-    gutenberg_section = chart_section(
-        "gutenberg",
-        '<span class="chart-logo" style="background:#eeedfe;color:#3c3489;">Gutenberg</span>',
-        f"Most downloaded ebooks · {TODAY} · Free public domain",
-        [
-            ("Most Downloaded", "gut-top", gutenberg, {"show_ai_badge": False, "show_free": True}),
-        ]
-    )
-
-    gutenberg_ai_section = chart_section(
+    gut_ai_sec = chart_section(
         "gutenberg-ai",
         '<span class="chart-logo" style="background:#eeedfe;color:#3c3489;">Gutenberg AI</span>',
         f"Microsoft Neural TTS · Free · No account needed",
         [
-            ("AI Narrated Classics", "gut-ai", gutenberg_ai, {"show_ai_badge": False, "show_duration": True, "show_free": True}),
+            ("AI Narrated Classics", "gut-ai", gut_ai, {"show_ai": False, "show_duration": True, "show_free": True}),
         ]
     )
 
@@ -318,47 +291,28 @@ def build_html(data):
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Audiobook Bestsellers — Audiobooks.org</title>
   <link rel="canonical" href="https://audiobooks.org/bestsellers.html" />
-  <meta name="description" content="Live audiobook bestseller charts — NYT, Audible, PopVortex, LibriVox, and Project Gutenberg. Updated daily." />
-  <meta property="og:title" content="Audiobook Bestsellers — Audiobooks.org" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://audiobooks.org/bestsellers.html" />
+  <meta name="description" content="Live audiobook bestseller charts — NYT, Audible, PopVortex, LibriVox, and Gutenberg AI. Updated daily." />
   <link rel="stylesheet" href="/styles.css" />
   <style>
     .chart-list {{ display: none; }}
     .chart-list.active {{ display: block; }}
     .ctab {{ cursor: pointer; }}
-    /* AI row highlight */
     .ai-row {{ background: #f9f8ff; }}
-    .badge-ai {{
-      background: var(--purple-light);
-      color: var(--purple-dark);
-      border: 1px solid var(--purple-mid);
-    }}
-    .badge-free {{ background: var(--teal-light); color: var(--teal-dark); }}
+    .badge-ai   {{ background: var(--purple-light); color: var(--purple-dark); border: 1px solid var(--purple-mid); }}
+    .badge-free {{ background: var(--teal-light);   color: var(--teal-dark); }}
     .badge-source {{ background: var(--bg-off); color: var(--text-muted); border: 1px solid var(--border); }}
-    .chart-jump {{
-      display: flex; gap: 8px; flex-wrap: wrap;
-      margin: 24px 0 8px;
-    }}
+    .chart-jump {{ display: flex; gap: 8px; flex-wrap: wrap; margin: 24px 0 8px; }}
     .chart-jump a {{
-      font-size: 0.8rem; font-weight: 500;
-      padding: 6px 14px; border-radius: 20px;
-      border: 1.5px solid var(--border);
-      color: var(--text-muted);
+      font-size: 0.8rem; font-weight: 500; padding: 6px 14px;
+      border-radius: 20px; border: 1.5px solid var(--border); color: var(--text-muted);
       transition: all 0.12s;
     }}
-    .chart-jump a:hover {{
-      background: var(--teal-light);
-      border-color: var(--teal-mid);
-      color: var(--teal-dark);
-    }}
+    .chart-jump a:hover {{ background: var(--teal-light); border-color: var(--teal-mid); color: var(--teal-dark); }}
     .ai-legend {{
       display: inline-flex; align-items: center; gap: 6px;
       font-size: 0.8rem; color: var(--purple-dark);
-      background: var(--purple-light);
-      padding: 6px 14px; border-radius: 20px;
-      border: 1px solid var(--purple-mid);
-      margin-top: 12px;
+      background: var(--purple-light); padding: 6px 14px;
+      border-radius: 20px; border: 1px solid var(--purple-mid); margin-top: 12px;
     }}
   </style>
 </head>
@@ -368,8 +322,8 @@ def build_html(data):
 <nav class="nav" aria-label="Primary">
   <div class="container">
     <div class="nav-inner">
-      <a href="/index.html" class="nav-logo" aria-label="Audiobooks.org home">
-        <div class="nav-logo-icon" aria-hidden="true">🎧</div>
+      <a href="/index.html" class="nav-logo">
+        <div class="nav-logo-icon">🎧</div>
         <span><span>Audio</span>books.org</span>
       </a>
       <div class="nav-links" id="nav-links">
@@ -390,7 +344,7 @@ def build_html(data):
   <div class="container">
     <span class="badge badge-amber" style="margin-bottom:12px;display:inline-block;">📊 Live charts</span>
     <h1>Audiobook Bestsellers</h1>
-    <p>Six charts updated daily — NYT, Audible, PopVortex, LibriVox, Project Gutenberg, and Gutenberg AI. Paid and free, all in one place.</p>
+    <p>Five charts updated daily — NYT, Audible, PopVortex, LibriVox, and Gutenberg AI. Paid and free, all in one place.</p>
     <div class="ai-legend">⚙ AI narrated badge marks synthetic-voice titles in paid charts</div>
   </div>
 </div>
@@ -402,13 +356,11 @@ def build_html(data):
       ℹ️ <strong>Affiliate disclosure:</strong> Paid chart links earn a small commission at no extra cost to you. Free chart links earn nothing — we include them because they're genuinely great.
     </div>
 
-    <!-- Jump links -->
     <div class="chart-jump">
       <a href="#audible">Audible</a>
       <a href="#nyt">NYT</a>
       <a href="#popvortex">PopVortex</a>
       <a href="#librivox">LibriVox 🔓</a>
-      <a href="#gutenberg">Gutenberg 🔓</a>
       <a href="#gutenberg-ai">Gutenberg AI 🔓</a>
     </div>
 
@@ -419,17 +371,15 @@ def build_html(data):
       </div>
     </div>
 
-    {audible_section}
+    {audible_sec}
     <div style="height:24px;"></div>
-    {nyt_section}
+    {nyt_sec}
     <div style="height:24px;"></div>
-    {popvortex_section}
+    {pv_sec}
     <div style="height:24px;"></div>
-    {librivox_section}
+    {lv_sec}
     <div style="height:24px;"></div>
-    {gutenberg_section}
-    <div style="height:24px;"></div>
-    {gutenberg_ai_section}
+    {gut_ai_sec}
 
   </div>
 </main>
@@ -448,12 +398,12 @@ def build_html(data):
 </footer>
 
 <script>
-  function switchTab(clickedTab, targetId) {{
-    const wrap = clickedTab.closest('.chart-wrap');
-    wrap.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
-    wrap.querySelectorAll('.chart-list').forEach(l => l.classList.remove('active'));
-    clickedTab.classList.add('active');
-    document.getElementById(targetId).classList.add('active');
+  function switchTab(t, id) {{
+    const w = t.closest('.chart-wrap');
+    w.querySelectorAll('.ctab').forEach(x => x.classList.remove('active'));
+    w.querySelectorAll('.chart-list').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(id).classList.add('active');
   }}
 </script>
 </body>
@@ -465,48 +415,36 @@ def build_html(data):
 def main():
     print(f"Fetching bestseller data — {TODAY}")
 
-    print("  Fetching NYT audio-fiction...")
-    nyt_fiction = fetch_nyt("audio-fiction")
+    print("  NYT audio-fiction...")
+    nyt_f = fetch_nyt("audio-fiction")
 
-    print("  Fetching NYT audio-nonfiction...")
-    nyt_nonfiction = fetch_nyt("audio-nonfiction")
+    print("  NYT audio-nonfiction...")
+    nyt_nf = fetch_nyt("audio-nonfiction")
 
-    print("  Fetching PopVortex...")
-    popvortex = fetch_popvortex()
+    print("  PopVortex...")
+    pv = fetch_popvortex()
 
-    print("  Fetching LibriVox...")
-    librivox = fetch_librivox()
+    print("  LibriVox...")
+    lv = fetch_librivox()
 
-    print("  Fetching Project Gutenberg top downloads...")
-    gutenberg = fetch_gutenberg()
+    print("  Gutenberg AI (curated)...")
+    gut_ai = get_gutenberg_ai()
 
-    print("  Loading Gutenberg AI curated list...")
-    gutenberg_ai = get_gutenberg_ai()
+    html = build_html({
+        "nyt_fiction":    nyt_f,
+        "nyt_nonfiction": nyt_nf,
+        "popvortex":      pv,
+        "librivox":       lv,
+        "gutenberg_ai":   gut_ai,
+    })
 
-    data = {
-        "nyt_fiction":    nyt_fiction,
-        "nyt_nonfiction": nyt_nonfiction,
-        "popvortex":      popvortex,
-        "librivox":       librivox,
-        "gutenberg":      gutenberg,
-        "gutenberg_ai":   gutenberg_ai,
-    }
-
-    html = build_html(data)
     OUTPUT_FILE.write_text(html, encoding="utf-8")
     print(f"  ✓ Written to {OUTPUT_FILE}")
-
-    # Print summary
-    print(f"\nSummary:")
-    print(f"  NYT fiction:     {len(nyt_fiction)} titles")
-    print(f"  NYT nonfiction:  {len(nyt_nonfiction)} titles")
-    print(f"  PopVortex:       {len(popvortex)} titles")
-    print(f"  LibriVox:        {len(librivox)} titles")
-    print(f"  Gutenberg:       {len(gutenberg)} titles")
-    print(f"  Gutenberg AI:    {len(gutenberg_ai)} titles")
-    ai_total = sum(1 for b in nyt_fiction + nyt_nonfiction if b.get("ai"))
-    if ai_total:
-        print(f"  AI-badged titles: {ai_total}")
+    print(f"\n  NYT fiction:    {len(nyt_f)}")
+    print(f"  NYT nonfiction: {len(nyt_nf)}")
+    print(f"  PopVortex:      {len(pv)}")
+    print(f"  LibriVox:       {len(lv)}")
+    print(f"  Gutenberg AI:   {len(gut_ai)}")
 
 
 if __name__ == "__main__":
