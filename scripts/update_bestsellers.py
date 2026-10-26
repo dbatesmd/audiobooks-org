@@ -292,7 +292,7 @@ def build_html(data):
   <title>Audiobook Bestsellers — Audiobooks.org</title>
   <link rel="canonical" href="https://audiobooks.org/bestsellers.html" />
   <meta name="description" content="Live audiobook bestseller charts — NYT, Audible, PopVortex, LibriVox, and Gutenberg AI. Updated daily." />
-    <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7YCXGE0S34"></script>
   <script>
@@ -301,109 +301,71 @@ def build_html(data):
     gtag('js', new Date());
     gtag('config', 'G-7YCXGE0S34');
   </script>
-  <style>
-    .chart-list {{ display: none; }}
-    .chart-list.active {{ display: block; }}
-    .ctab {{ cursor: pointer; }}
-    .ai-row {{ background: #f9f8ff; }}
-    .badge-ai   {{ background: var(--purple-light); color: var(--purple-dark); border: 1px solid var(--purple-mid); }}
-    .badge-free {{ background: var(--teal-light);   color: var(--teal-dark); }}
-    .badge-source {{ background: var(--bg-off); color: var(--text-muted); border: 1px solid var(--border); }}
-    .chart-jump {{ display: flex; gap: 8px; flex-wrap: wrap; margin: 24px 0 8px; }}
-    .chart-jump a {{
-      font-size: 0.8rem; font-weight: 500; padding: 6px 14px;
-      border-radius: 20px; border: 1.5px solid var(--border); color: var(--text-muted);
-      transition: all 0.12s;
-    }}
-    .chart-jump a:hover {{ background: var(--teal-light); border-color: var(--teal-mid); color: var(--teal-dark); }}
-    .ai-legend {{
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.8rem; color: var(--purple-dark);
-      background: var(--purple-light); padding: 6px 14px;
-      border-radius: 20px; border: 1px solid var(--purple-mid); margin-top: 12px;
-    }}
-  </style>
 </head>
-<body>
-<a href="#main" class="skip-link">Skip to content</a>
-
-<nav class="nav" aria-label="Primary">
-  <div class="container">
-    <div class="nav-inner">
-      <a href="/index.html" class="nav-logo">
-        <div class="nav-logo-icon">🎧</div>
-        <span><span>Audio</span>books.org</span>
-      </a>
-      <div class="nav-links" id="nav-links">
-        <a href="/index.html"          class="nav-link">Home</a>
-        <a href="/paid-platforms.html" class="nav-link">Paid platforms</a>
-        <a href="/free-sources.html"   class="nav-link">Free sources</a>
-        <a href="/ai-audiobooks.html"  class="nav-link">AI picks</a>
-        <a href="/bestsellers.html"    class="nav-link active" aria-current="page">Bestsellers</a>
-      </div>
-      <a href="/paid-platforms.html#audible" class="btn btn-primary nav-cta">Start listening</a>
-      <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"
-        onclick="const l=document.getElementById('nav-links');const o=l.classList.toggle('open');this.setAttribute('aria-expanded',o);">☰</button>
-    </div>
-  </div>
-</nav>
-
-<div class="page-hero amber">
-  <div class="container">
-    <span class="badge badge-amber" style="margin-bottom:12px;display:inline-block;">📊 Live charts</span>
-    <h1>Audiobook Bestsellers</h1>
-    <p>Five charts updated daily — NYT, Audible, PopVortex, LibriVox, and Gutenberg AI. Paid and free, all in one place.</p>
-    <div class="ai-legend">⚙ AI narrated badge marks synthetic-voice titles in paid charts</div>
-  </div>
-</div>
-
-<main id="main">
-  <div class="container">
-
-    <div class="disclosure" style="margin-top:24px;">
-      ℹ️ <strong>Affiliate disclosure:</strong> Paid chart links earn a small commission at no extra cost to you. Free chart links earn nothing — we include them because they're genuinely great.
-    </div>
-
-    <div class="chart-jump">
-      <a href="#audible">Audible</a>
-      <a href="#nyt">NYT</a>
-      <a href="#popvortex">PopVortex</a>
-      <a href="#librivox">LibriVox 🔓</a>
-      <a href="#gutenberg-ai">Gutenberg AI 🔓</a>
-    </div>
-
-    <div class="section-header" style="margin-top:8px;">
-      <div>
-        <h2>📊 All charts</h2>
-        <p class="section-meta">Auto-updated daily via GitHub Actions · Last updated {TODAY}</p>
-      </div>
-    </div>
-
-    {audible_sec}
-    <div style="height:24px;"></div>
-    {nyt_sec}
-    <div style="height:24px;"></div>
-    {pv_sec}
-    <div style="height:24px;"></div>
-    {lv_sec}
-    <div style="height:24px;"></div>
-    {gut_ai_sec}
-
-  </div>
-</main>
-
-<footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <span class="footer-copy">© 2026 Audiobooks.org · Affiliate links help keep this site free · Charts updated {TODAY}</span>
-      <nav class="footer-links">
-        <a href="#">About</a>
-        <a href="#">Privacy</a>
-        <a href="#">Contact</a>
+<body class="v2">
+  <div class="page">
+    <header class="nav">
+      <a class="logo" href="/">Audiobooks<em>.org</em></a>
+      <nav class="links">
+        <a href="/">News</a>
+        <a class="hot" href="/bestsellers/">Bestsellers</a>
+        <a href="/free-books/">Free</a>
+        <a href="/#price-check">Cheap</a>
+        <a href="/unlimited/">Unlimited</a>
+        <a href="/#guides">Guides</a>
+        <a href="/ai-audiobooks/">AI in Audiobooks</a>
       </nav>
+    </header>
+
+    <div class="narr-bar">
+      <div class="narr-inner">
+        <span class="narr-label">Narration:</span>
+        <span class="narr-group" role="img" aria-label="Narration filter (set on the home page)">
+          <span class="nbtn">Human</span>
+          <span class="nbtn on">Both</span>
+          <span class="nbtn">AI</span>
+        </span>
+      </div>
     </div>
+
+    <div class="ticker"><b>Latest</b><span>Charts refreshed daily — NYT, Audible, Apple, LibriVox and Gutenberg AI bestsellers · Last updated {TODAY}</span></div>
+
+    <section class="hero">
+      <div class="kicker">Live charts</div>
+      <h1>Audiobook Bestsellers</h1>
+      <p>Five charts updated daily — NYT, Audible, PopVortex, LibriVox, and Gutenberg AI. Paid and free, all in one place.</p>
+      <div class="ai-legend">⚙ AI narrated badge marks synthetic-voice titles in paid charts</div>
+    </section>
+
+    <main class="bs-main">
+      <div class="bs-disclosure">
+        ℹ️ <strong>Affiliate disclosure:</strong> Paid chart links earn a small commission at no extra cost to you. Free chart links earn nothing — we include them because they're genuinely great.
+      </div>
+
+      <div class="chart-jump">
+        <a href="#audible">Audible</a>
+        <a href="#nyt">NYT</a>
+        <a href="#popvortex">PopVortex</a>
+        <a href="#librivox">LibriVox 🔓</a>
+        <a href="#gutenberg-ai">Gutenberg AI 🔓</a>
+      </div>
+
+      <div class="blockhead">
+        <h3>All charts</h3>
+        <span class="section-meta">Auto-updated daily · Last updated {TODAY}</span>
+      </div>
+
+      {audible_sec}
+      {nyt_sec}
+      {pv_sec}
+      {lv_sec}
+      {gut_ai_sec}
+    </main>
+
+    <footer>
+      Independent and reader-supported: we may earn a commission from Audible, Libro.fm, or Chirp links — it never changes which option we recommend first, and the free route is always shown. Charts updated {TODAY}.
+    </footer>
   </div>
-</footer>
 
 <script>
   function switchTab(t, id) {{
