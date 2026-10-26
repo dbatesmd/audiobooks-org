@@ -1,273 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Audiobooks.org — Every audiobook, every source</title>
-  <meta name="description" content="Compare paid platforms, explore free audiobook libraries, and discover new AI-narrated titles — all in one place." />
-  <link rel="canonical" href="https://audiobooks.org/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Audiobooks.org — Every audiobook, every source" />
-  <meta property="og:description" content="Compare paid platforms, explore free audiobook libraries, and discover new AI-narrated titles — all in one place." />
-  <meta property="og:url" content="https://audiobooks.org/" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%8E%A7%3C/text%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="styles.css" />
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7YCXGE0S34"></script>
-  <script>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Audiobooks.org — Free, Cheap, or Unlimited: every way to listen, honestly compared</title><meta name="description" content="Three honest ways to listen — free, cheap, or unlimited — plus the newest audiobooks and checked prices."><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-7YCXGE0S34"></script><script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-7YCXGE0S34');
-  </script>
-</head>
-<body>
-<a class="skip-link" href="#main">Skip to content</a>
-
-<!-- ── NAV ──────────────────────────────────────────────────── -->
-<nav class="nav">
-  <div class="container">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="Audiobooks.org home">
-        <div class="nav-logo-icon" aria-hidden="true">🎧</div>
-        <span><span>Audio</span>books.org</span>
-      </a>
-      <div class="nav-links" id="nav-links">
-        <a href="index.html"           class="nav-link active" aria-current="page">Home</a>
-        <a href="paid-platforms.html"  class="nav-link">Paid platforms</a>
-        <a href="free-sources.html"    class="nav-link">Free sources</a>
-        <a href="ai-audiobooks.html"   class="nav-link">AI picks</a>
-        <a href="bestsellers.html"    class="nav-link">Bestsellers</a>
-      </div>
-      <a href="paid-platforms.html#audible" class="btn btn-primary btn-sm nav-cta">Start listening</a>
-      <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links" onclick="const l=document.getElementById('nav-links');const open=l.classList.toggle('open');this.setAttribute('aria-expanded',open);">☰</button>
-    </div>
-  </div>
-</nav>
-
-<!-- ── HERO ──────────────────────────────────────────────────── -->
-<main id="main">
-<section class="hero">
-  <div class="container">
-    <div class="hero-eyebrow">
-      <span class="badge badge-teal">✦ Your audiobook hub</span>
-    </div>
-    <h1>Every audiobook,<br>every source.</h1>
-    <p class="hero-sub">Compare platforms, explore free libraries, and discover AI-narrated titles — all in one place.</p>
-    <form class="search-bar" role="search" onsubmit="event.preventDefault(); const q=this.q.value.trim(); if(q) window.open('https://www.audible.com/search?keywords='+encodeURIComponent(q),'_blank','noopener');">
-      <label class="sr-only" for="hero-search">Search audiobooks</label>
-      <input id="hero-search" type="search" name="q" placeholder="Search by title, author, or genre…" autocomplete="off" />
-      <button type="submit">Search</button>
-    </form>
-    <div class="hero-stats">
-      <div class="hero-stat"><strong>500,000+</strong> titles indexed</div>
-      <div class="hero-stat"><strong>12</strong> free sources</div>
-      <div class="hero-stat"><strong>New AI titles</strong> added weekly</div>
-    </div>
-  </div>
-</section>
-
-<!-- ── FEATURED PLATFORMS ─────────────────────────────────────── -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <div>
-        <h2>Featured platforms</h2>
-        <p class="section-meta">Affiliate links support this free site — at no extra cost to you</p>
-      </div>
-      <a href="paid-platforms.html" class="see-all">See all paid platforms →</a>
-    </div>
-
-    <div class="platform-grid">
-      <!-- Audible -->
-      <div class="platform-card featured">
-        <div class="platform-card-top">
-          <div class="platform-icon" style="background:#FAEEDA;">📚</div>
-          <span class="badge badge-deal">30-day free trial</span>
-        </div>
-        <h3>Audible</h3>
-        <p>World's largest catalog. 1 free credit/month, keep your books forever.</p>
-        <a href="paid-platforms.html#audible" class="platform-cta">Try free for 30 days ↗</a>
-      </div>
-
-      <!-- Scribd -->
-      <div class="platform-card">
-        <div class="platform-card-top">
-          <div class="platform-icon" style="background:#E6F1FB;">📖</div>
-          <span class="badge badge-unltd">Unlimited access</span>
-        </div>
-        <h3>Scribd</h3>
-        <p>Unlimited audiobooks, ebooks, and magazines for one flat monthly price.</p>
-        <a href="paid-platforms.html#scribd" class="platform-cta">Get unlimited access ↗</a>
-      </div>
-
-      <!-- Libro.fm -->
-      <div class="platform-card">
-        <div class="platform-card-top">
-          <div class="platform-icon" style="background:#E1F5EE;">🏠</div>
-          <span class="badge badge-trial">Indie stores</span>
-        </div>
-        <h3>Libro.fm</h3>
-        <p>Same catalog as Audible — your purchase supports independent bookshops.</p>
-        <a href="paid-platforms.html#librofm" class="platform-cta">Browse Libro.fm ↗</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ── FREE SOURCES PREVIEW ───────────────────────────────────── -->
-<section class="section" style="background:#FAFDF9;">
-  <div class="container">
-    <div class="section-header">
-      <div>
-        <h2>🔓 Top free sources</h2>
-        <p class="section-meta">No subscription, no credit card — completely free</p>
-      </div>
-      <a href="free-sources.html" class="see-all">See all 12 free sources →</a>
-    </div>
-
-    <div class="free-list">
-      <a href="free-sources.html#librivox" class="free-item" style="text-decoration:none;">
-        <div class="free-icon" style="background:#E1F5EE;">🎙</div>
-        <div class="free-info">
-          <h4>LibriVox</h4>
-          <p>Public domain books read by volunteers worldwide — no account needed</p>
-          <div class="free-count">17,000+ free audiobooks</div>
-        </div>
-        <span class="free-arrow">›</span>
-      </a>
-      <a href="free-sources.html#libby" class="free-item" style="text-decoration:none;">
-        <div class="free-icon" style="background:#FAEEDA;">📚</div>
-        <div class="free-info">
-          <h4>Libby / OverDrive</h4>
-          <p>Borrow free audiobooks with your public library card</p>
-          <div class="free-count">Millions of titles via local libraries</div>
-        </div>
-        <span class="free-arrow">›</span>
-      </a>
-      <a href="free-sources.html#gutenberg" class="free-item" style="text-decoration:none;">
-        <div class="free-icon" style="background:#E6F1FB;">📂</div>
-        <div class="free-info">
-          <h4>Project Gutenberg</h4>
-          <p>Classic literature in audio — no DRM, free to download forever</p>
-          <div class="free-count">6,000+ audio titles</div>
-        </div>
-        <span class="free-arrow">›</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ── AI AUDIOBOOKS STRIP ────────────────────────────────────── -->
-<section class="section ai-strip">
-  <div class="container">
-    <div class="section-header">
-      <div>
-        <span class="badge badge-purple" style="margin-bottom:8px;display:inline-block;">⚙ New this week</span>
-        <h2>AI-narrated audiobooks</h2>
-        <p class="section-meta" style="margin-top:4px;">Synthetic-voice productions expanding the catalog every week</p>
-      </div>
-      <a href="ai-audiobooks.html" class="see-all" style="color:#534AB7;">Browse all AI titles →</a>
-    </div>
-
-    <div class="ai-grid">
-      <a href="ai-audiobooks.html" class="ai-card" style="text-decoration:none;">
-        <div class="ai-cover" style="background:#EEEDFE;">🧠</div>
-        <div class="ai-meta">
-          <h4>Deep Focus</h4>
-          <p>AI narrated · 6 hrs</p>
-          <span class="badge badge-new mt-4" style="font-size:0.7rem;">New</span>
-        </div>
-      </a>
-      <a href="ai-audiobooks.html" class="ai-card" style="text-decoration:none;">
-        <div class="ai-cover" style="background:#E1F5EE;">🚀</div>
-        <div class="ai-meta">
-          <h4>The Last Colony</h4>
-          <p>AI narrated · 9 hrs</p>
-          <span class="badge badge-new mt-4" style="font-size:0.7rem;">Sci-fi</span>
-        </div>
-      </a>
-      <a href="ai-audiobooks.html" class="ai-card" style="text-decoration:none;">
-        <div class="ai-cover" style="background:#FAEEDA;">💡</div>
-        <div class="ai-meta">
-          <h4>Wealth Unlocked</h4>
-          <p>AI narrated · 4 hrs</p>
-          <span class="badge badge-new mt-4" style="font-size:0.7rem;">Finance</span>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ── SUBMISSION FORM ─────────────────────────────────────────── -->
-<section class="section">
-  <div class="container">
-    <div class="submit-box">
-      <div class="submit-header">
-        <div class="submit-header-icon" style="background:#E1F5EE;">📬</div>
-        <div>
-          <h3>Know a great audiobook source?</h3>
-          <p>Submit it — we review all submissions every Monday and add approved sources the same week</p>
-        </div>
-      </div>
-      <form class="submit-form" id="home-submit-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <div class="form-field">
-          <label class="form-label">Source name *</label>
-          <input class="form-input" type="text" name="source_name" placeholder="e.g. Hoopla Digital" required />
-        </div>
-        <div class="form-field">
-          <label class="form-label">Website URL *</label>
-          <input class="form-input" type="text" name="url" placeholder="https://…" required />
-        </div>
-        <div class="form-field">
-          <label class="form-label">Type *</label>
-          <select class="form-select" name="type">
-            <option value="">Select one…</option>
-            <option>Free source</option>
-            <option>Paid / subscription</option>
-            <option>AI audiobooks</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label class="form-label">Your email (optional)</label>
-          <input class="form-input" type="email" name="email" placeholder="For review notification" />
-        </div>
-        <div class="form-field full">
-          <label class="form-label">Brief description *</label>
-          <textarea class="form-textarea" name="description" placeholder="What makes this source worth listing? Any affiliate program available?" required></textarea>
-        </div>
-        <input type="hidden" name="_subject" value="New Audiobooks.org Submission" />
-        <input type="text" name="_gotcha" style="display:none" />
-      </form>
-      <div class="submit-footer">
-        <span class="submit-note">📅 Reviewed every Monday · Approved links go live the same week</span>
-        <button type="submit" form="home-submit-form" class="btn btn-primary btn-sm">Submit source</button>
-      </div>
-    </div>
-  </div>
-</section>
-</main>
-
-<!-- ── FOOTER ─────────────────────────────────────────────────── -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <p class="footer-copy">© 2026 Audiobooks.org · Affiliate links help keep this site free</p>
-      <div class="footer-links">
-        <a href="#">About</a>
-        <a href="#">Privacy</a>
-        <a href="#">Contact</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-</body>
-</html>
+  </script><link rel="stylesheet" href="/_astro/ai-audiobooks.BsM949R_.css"></head> <body> <div class="page"> <header class="nav"> <a class="logo" href="/">Audiobooks<em>.org</em></a> <nav class="links"> <a class="hot" href="/">News</a> <a href="/bestsellers/">Bestsellers</a> <a href="/free-books/">Free</a> <a href="/#price-check">Cheap</a> <a href="/unlimited/">Unlimited</a> <a href="/#guides">Guides</a> <a href="/ai-audiobooks/">AI in Audiobooks</a> </nav> </header> <div class="narr-bar" data-astro-cid-jyvgnr2f> <div class="narr-inner" data-astro-cid-jyvgnr2f> <span class="narr-label" data-astro-cid-jyvgnr2f>Narration:</span> <span role="group" aria-label="Narration filter" class="narr-group" data-astro-cid-jyvgnr2f> <button type="button" data-narr="human" data-astro-cid-jyvgnr2f>Human</button> <button type="button" data-narr="both" data-astro-cid-jyvgnr2f>Both</button> <button type="button" data-narr="ai" data-astro-cid-jyvgnr2f>AI</button> </span> </div> </div>  <script>
+  (function () {
+    var KEY = 'ab-narration';
+    function apply(v) {
+      document.querySelectorAll('[data-narr]').forEach(function (b) {
+        b.classList.toggle('on', b.getAttribute('data-narr') === v);
+      });
+      document.querySelectorAll('[data-narration]').forEach(function (c) {
+        c.style.display = (v === 'both' || c.getAttribute('data-narration') === v) ? '' : 'none';
+      });
+      var e = document.getElementById('narr-empty');
+      if (e) {
+        var any = [].some.call(document.querySelectorAll('[data-narration]'), function (c) { return c.style.display !== 'none'; });
+        e.style.display = any ? 'none' : '';
+      }
+    }
+    var saved = 'both';
+    try { saved = localStorage.getItem(KEY) || 'both'; } catch (err) {}
+    if (['human', 'both', 'ai'].indexOf(saved) < 0) saved = 'both';
+    apply(saved);
+    document.querySelectorAll('[data-narr]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-narr');
+        try { localStorage.setItem(KEY, v); } catch (err) {}
+        apply(v);
+      });
+    });
+  })();
+</script> <div class="ticker"><b>Latest</b><span>ACOTAR 6 lands Tuesday Oct 27 at 12:01am — the standard edition is free day-one on Hoopla →</span></div>  <div class="hero"> <div class="kicker">New to audiobooks? Start here.</div> <h1>Start listening in 10 minutes — free, cheap, or unlimited.</h1> <p>Three honest ways to listen, the newest audiobooks as they land, and the price of the book you want — checked in every way you could get it.</p> </div> <div class="main"> <div class="news"> <section class="block"> <div class="blockhead"><h3>Newest audiobooks</h3><a href="/price-check/">All price-checks →</a></div> <div class="releases"> <article class="rel" data-narration="human"> <div class="cover" style="background:#35507a">A Court of Splintered Harmony</div> <div class="body"> <div class="sample">Out 2026-10-27 · 🎙 Narrated by: Human</div> <h5><a href="/price-check/a-court-of-splintered-harmony/">A Court of Splintered Harmony</a></h5> <p>Sarah J. Maas · Narrated by Elizabeth Evans<br>Length to check<br> Free route verified — see price-check →</p> </div> </article><article class="rel" data-narration="human"> <div class="cover" style="background:#7a4a2b">Dracula (Audible Original, full-cast)</div> <div class="body"> <div class="sample">Out 2026-10-01 · 🎙 Narrated by: Human</div> <h5><a href="/price-check/dracula-audible-original/">Dracula (Audible Original, full-cast)</a></h5> <p>Bram Stoker · Narrated by Full cast incl. Ella Purnell, Jonathan Bailey, Aimee Lou Wood, Louis Partridge, David Jonsson, Maggie Gyllenhaal<br>Length to check<br> Price-check →</p> </div> </article><article class="rel" data-narration="human"> <div class="cover" style="background:#3f6150">Exoplanet</div> <div class="body"> <div class="sample">Out 2026-11-05 · 🎙 Narrated by: Human</div> <h5><a href="/price-check/exoplanet/">Exoplanet</a></h5> <p>Benjamin Percy · Narrated by Full cast: Anthony Mackie, Ariana DeBose, John Leguizamo, Ray Porter, Cherry Jones, Sufe Bradshaw, Charlie Plummer, Aida Osman<br>Length to check<br> Price-check →</p> </div> </article><article class="rel" data-narration="human ai"> <div class="cover" style="background:#5b4a7a">The Cultural Tutor: A Modern Guide to History, Art and Philosophy in 49 Short Chapters</div> <div class="body"> <div class="sample">Out 2026-10 · Narration to check</div> <h5><a href="/price-check/the-cultural-tutor/">The Cultural Tutor: A Modern Guide to History, Art and Philosophy in 49 Short Chapters</a></h5> <p>Sheehan Quirke<br>Length to check<br> Price-check →</p> </div> </article><article class="rel" data-narration="human"> <div class="cover" style="background:#7a2b3f">The Hollow</div> <div class="body"> <div class="sample">Out 2026-10-27 · 🎙 Narrated by: Human</div> <h5><a href="/price-check/the-hollow/">The Hollow</a></h5> <p>Michael Connelly · Narrated by Titus Welliver and Cameron Monaghan<br>Length to check<br> Price-check →</p> </div> </article><article class="rel" data-narration="human"> <div class="cover" style="background:#2b5b7a">Mortal Things</div> <div class="body"> <div class="sample">Out 2026-10-27 · 🎙 Narrated by: Human</div> <h5><a href="/price-check/mortal-things/">Mortal Things</a></h5> <p>Marie Lu · Narrated by Eunice Wong and JiaLing Pan<br>Length to check<br> Price-check →</p> </div> </article><article class="rel" data-narration="human"> <div class="cover" style="background:#617a2b">To Dream in Darkness</div> <div class="body"> <div class="sample">Out 2026-10-27 · 🎙 Narrated by: Human</div> <h5><a href="/price-check/to-dream-in-darkness/">To Dream in Darkness</a></h5> <p>Ann Liang · Narrated by Natalie Naudus<br>Length to check<br> Price-check →</p> </div> </article><article class="rel" data-narration="human"> <div class="cover" style="background:#4a4a4a">The Brightness</div> <div class="body"> <div class="sample">Out 2026-10-27 · 🎙 Narrated by: Human</div> <h5><a href="/price-check/the-brightness/">The Brightness</a></h5> <p>Chad Harbach · Narrated by Helen Laser<br>Length to check<br> Price-check →</p> </div> </article> </div> <p id="narr-empty" style="display:none;font-size:13.5px;color:#55606b">No listed titles match that narration filter yet — switch back to Both to see everything.</p> </section> <section class="block"> <div class="blockhead"><h3>Bestseller charts</h3><a href="/bestsellers/">All five charts →</a></div> <div class="headline" data-narration="human ai"> <div class="date">NYT Fiction · chart dated 2026-10-26</div> <h5><a href="/bestsellers/">#1: THRESHING DAY</a></h5> <p>Rebecca Yarros — full Top 10 on the charts page.</p> </div><div class="headline" data-narration="human ai"> <div class="date">NYT Nonfiction · chart dated 2026-10-26</div> <h5><a href="/bestsellers/">#1: SWAN SONG</a></h5> <p>Charles Spencer — full Top 10 on the charts page.</p> </div><div class="headline" data-narration="human ai"> <div class="date">Audible / PopVortex · chart dated 2026-10-26</div> <h5><a href="/bestsellers/">#1: In the Shadow of Eight</a></h5> <p>Collin Gosselin — full Top 10 on the charts page.</p> </div><div class="headline" data-narration="human ai"> <div class="date">LibriVox · chart dated 2026-10-26</div> <h5><a href="/bestsellers/">#1: Count of Monte Cristo</a></h5> <p>Alexandre Dumas · Free chart — full Top 10 on the charts page.</p> </div><div class="headline" data-narration="ai"> <div class="date">Gutenberg AI · chart dated 2026-10-26</div> <h5><a href="/bestsellers/">#1: Frankenstein</a></h5> <p>Mary Shelley · Free chart · AI-narrated classics — full Top 10 on the charts page.</p> </div> </section> <section class="block" id="price-check"> <div class="blockhead"><h3>Price-check a book</h3><a href="/price-check/">How we compare →</a></div> <p style="font-size:13.5px;color:#55606b;margin:0 0 10px;line-height:1.5">The same title, every way to get it, one table — free library routes first, then the cheapest way to own it, then the plans. Type a title:</p> <form id="pc-search" style="display:flex;gap:8px;margin-bottom:14px"> <input id="pc-q" list="pc-list" placeholder="e.g. A Court of Splintered Harmony" autocomplete="off" style="flex:1;padding:10px 12px;font-size:14px;border:1.5px solid #d9d2bd;border-radius:8px"> <datalist id="pc-list"> <option value="A Court of Splintered Harmony" data-slug="a-court-of-splintered-harmony"></option><option value="Dracula (Audible Original, full-cast)" data-slug="dracula-audible-original"></option><option value="Exoplanet" data-slug="exoplanet"></option><option value="The Cultural Tutor: A Modern Guide to History, Art and Philosophy in 49 Short Chapters" data-slug="the-cultural-tutor"></option><option value="The Hollow" data-slug="the-hollow"></option><option value="Mortal Things" data-slug="mortal-things"></option><option value="To Dream in Darkness" data-slug="to-dream-in-darkness"></option><option value="The Brightness" data-slug="the-brightness"></option><option value="A Court of Thorns and Roses (10th Anniversary Recording)" data-slug="a-court-of-thorns-and-roses"></option><option value="A Court of Mist and Fury (10th Anniversary Recording)" data-slug="a-court-of-mist-and-fury"></option><option value="A Court of Wings and Ruin (10th Anniversary Recording)" data-slug="a-court-of-wings-and-ruin"></option><option value="A Court of Frost and Starlight (10th Anniversary Recording)" data-slug="a-court-of-frost-and-starlight"></option><option value="A Court of Silver Flames (10th Anniversary Recording)" data-slug="a-court-of-silver-flames"></option><option value="The Sixth Faction" data-slug="the-sixth-faction"></option><option value="Trust Fall" data-slug="trust-fall"></option><option value="Partita" data-slug="partita"></option><option value="The Vanishing Family" data-slug="the-vanishing-family"></option><option value="Vibe" data-slug="vibe"></option><option value="The French Illusion" data-slug="the-french-illusion"></option><option value="Victorian Psycho" data-slug="victorian-psycho"></option><option value="Winterset Hollow" data-slug="winterset-hollow"></option><option value="As You Wake, Break the Shell" data-slug="as-you-wake-break-the-shell"></option><option value="Fictional Selves" data-slug="fictional-selves"></option><option value="The True Confessions of First Lady Freeman" data-slug="the-true-confessions-of-first-lady-freeman"></option><option value="The Names of the New World" data-slug="the-names-of-the-new-world"></option><option value="Dive Bar at the End of the Road" data-slug="dive-bar-at-the-end-of-the-road"></option><option value="Grace &#38; Jo Have Never Solved a Murder" data-slug="grace-and-jo-have-never-solved-a-murder"></option><option value="I Want to Be Famous: When Everybody and Nobody Is a Celebrity" data-slug="i-want-to-be-famous"></option><option value="Bad Words" data-slug="bad-words"></option><option value="Take a Chance, Sasha Sinclair" data-slug="take-a-chance-sasha-sinclair"></option><option value="A Court of Forgotten Melody" data-slug="a-court-of-forgotten-melody"></option><option value="ACOTAR Book 8 (untitled)" data-slug="acotar-book-8-untitled"></option><option value="Frankenstein" data-slug="frankenstein-ai-microsoft"></option><option value="Dracula (AI-narrated edition)" data-slug="dracula-ai-microsoft"></option><option value="Pride and Prejudice" data-slug="pride-and-prejudice-ai-microsoft"></option><option value="The Picture of Dorian Gray" data-slug="the-picture-of-dorian-gray-ai-microsoft"></option><option value="The Call of the Wild" data-slug="the-call-of-the-wild-ai-microsoft"></option><option value="Shadow Work and the Self" data-slug="shadow-work-and-the-self"></option><option value="Innocence Lost" data-slug="innocence-lost"></option><option value="Side Hustle Secrets" data-slug="side-hustle-secrets"></option><option value="Reactor: Sci-Fi Thriller" data-slug="reactor-sci-fi-thriller"></option><option value="How To Start a Business for Beginners" data-slug="how-to-start-a-business-for-beginners"></option> </datalist> <button type="submit" style="padding:10px 18px;font-weight:800;border:0;border-radius:8px;background:#1b2a4a;color:#fff;cursor:pointer">Check prices</button> </form> <p id="pc-miss" style="display:none;font-size:13.5px;color:#7a2b12;line-height:1.5;background:#fff3df;border:1px solid #f0d39a;border-radius:10px;padding:10px 12px"></p> <script>
+          // Build-time search over checked books only. A miss is a work order,
+          // never a dead end: it is logged to api.audiobooks.org (see
+          // api/README.md) and added to the checking queue.
+          (function () {
+            var form = document.getElementById('pc-search');
+            var input = document.getElementById('pc-q');
+            var miss = document.getElementById('pc-miss');
+            var opts = {};
+            document.querySelectorAll('#pc-list option').forEach(function (o) {
+              opts[o.value.toLowerCase()] = o.getAttribute('data-slug');
+            });
+            function normalise(s) {
+              return s.toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\b(audiobook|audio book)\b/g, '').replace(/\s+/g, ' ').trim();
+            }
+            form.addEventListener('submit', function (ev) {
+              ev.preventDefault();
+              var raw = input.value || '';
+              var slug = opts[raw.toLowerCase()];
+              if (!slug) {
+                var n = normalise(raw);
+                Object.keys(opts).forEach(function (k) { if (normalise(k) === n) slug = opts[k]; });
+              }
+              if (slug) { window.location.href = '/price-check/' + slug + '/'; return; }
+              miss.style.display = '';
+              miss.innerHTML = 'We haven\u2019t checked <b></b> yet — it\u2019s now in our checking queue (most titles are checked within 1\u20132 days). Meanwhile, find it now: ' +
+                ['Libby', 'Audible', 'Chirp', 'Libro.fm'].map(function (s) { return '<a href="#" rel="nofollow">' + s + '</a>'; }).join(' · ');
+              miss.querySelector('b').textContent = raw;
+              // Fire-and-forget demand logging (anonymous, aggregate only).
+              try {
+                fetch('https://api.audiobooks.org/log-query', {
+                  method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+                  body: JSON.stringify({ q: raw, normalised: normalise(raw), matched: null, page: location.pathname, narration: (function(){try{return localStorage.getItem('ab-narration')||'both'}catch(e){return 'both'}})() })
+                }).catch(function () {});
+              } catch (e) {}
+            });
+          })();
+        </script> <table> <tr><th>Way to get it</th><th>Cost</th><th>Wait / Keep?</th></tr> <tr class="best"><td><b>Libby / library</b></td><td>Free</td><td>Hold queue · borrow, don't keep</td></tr> <tr><td><b>Chirp deal</b> (when on offer)</td><td>Deal price, dated</td><td>No wait · yours to keep</td></tr> <tr><td><b>Audible</b></td><td>1 credit / check price</td><td>No wait · yours to keep</td></tr> <tr><td><b>Libro.fm</b></td><td>Credit / cash, dated</td><td>No wait · yours, supports a bookstore</td></tr> <tr><td><b>Spotify Premium</b></td><td>Included hours (15 hrs/mo) if in the catalogue</td><td>Stream while subscribed · hours expire monthly</td></tr> <tr><td><b>In an Unlimited catalogue?</b></td><td>Included / not included</td><td>Stream while subscribed</td></tr> </table> <p style="font-size:13px;color:#55606b;line-height:1.5;margin:10px 0 0"><b>Our one-line verdict under every table:</b> “Wait for free if you're patient — buy the deal if you want it this week.”</p> </section> <section class="block" id="ai"> <div class="blockhead"><h3>AI in audiobooks</h3><a href="/ai-audiobooks/">All AI coverage →</a></div> <div class="releases"> <div class="rel"><div class="body"><div class="sample">Explainer</div><h5>AI narration, explained plainly</h5><p>Virtual voices, digital narration, and text-to-speech — what each one is, and how they actually sound.</p></div></div> <div class="rel"><div class="body"><div class="sample">Reader's guide</div><h5>How to tell if a book is AI-narrated</h5><p>Labels, credits and clues on Audible, Apple Books, Google Play and Libro.fm — and where disclosure is still missing.</p></div></div> <div class="rel"><div class="body"><div class="sample">The other side</div><h5>When AI is a genuine plus</h5><p>Accessibility for readers who need it, out-of-print books brought back, and indie authors who could never afford a studio narrator.</p></div></div> </div> <p style="font-size:13.5px;color:#55606b;line-height:1.5;margin:12px 0 0"><b>Our stance:</b> we don't love or hate AI narration — we label it, listen to it, and tell you honestly when it's good, when it's flat, and when a human narrator is worth paying for. Audible's new in-experience AI (Character Guide, Interactive Stories, Visual Explorer — rolling out in beta this fall) is covered here too; it is not narration, and the narration filter above stays strictly about who narrates.</p> <p style="font-size:13.5px;margin:10px 0 0"><a href="/ai-audiobooks/" style="font-weight:800;color:#a96f0d;text-decoration:none">Browse the AI-narrated catalogue — free classics and paid titles, every voice engine labelled →</a></p> </section> <section class="block"> <div class="blockhead"><h3>Audiobook industry news</h3><a href="/">All industry news →</a></div> <div class="headline"> <div class="date">Mon Oct 26, 2026</div> <h5>750+ stores count down to midnight for a print book — here's how to be listening at the same minute, free</h5> <p>More than 500 Barnes &amp; Noble stores and ~250 Target countdowns mark the ACOTAR 6 print launch Monday night. The audiobook lands at the same 12:01am Tuesday moment — and the standard edition is free day-one on Hoopla, no waitlist. (Sources: Barnes &amp; Noble Inc press release, Oct 19; AFP, Oct 23–24.)</p> </div> <div class="headline"> <div class="date">Oct 7, 2026</div> <h5>Spotify takes audiobooks from 22 to 180+ markets</h5> <p>Spotify's global expansion makes it a real third kind of plan: hours-based. US Premium includes 15 hrs/month from a 700k+ catalogue; the new markets get 12 hrs/month and 350k+ titles, with Audiobooks+ the main route in much of Africa, Asia and Argentina. Our plan comparisons carry the market note — hours are not the same everywhere.</p> </div> <div class="headline"> <div class="date">Oct 1, 2026</div> <h5>Audible adds AI inside the listening experience</h5> <p>Character Guide (live in limited beta on Dracula and 1984), Interactive Stories (rolling out this fall), and Visual Explorer (coming soon, debuting on The Cultural Tutor). Exoplanet adds Character Guide on Nov 5. None of this changes who narrates — our Human/Both/AI filter is unaffected.</p> </div> </section> </div> <aside class="rail" data-astro-cid-w7gvw2tg> <h3 data-astro-cid-w7gvw2tg>Ways to listen</h3> <p class="sub" data-astro-cid-w7gvw2tg>Pick one to start. Most listeners end up using two.</p> <div class="way f" data-astro-cid-w7gvw2tg> <div class="price" data-astro-cid-w7gvw2tg>$0</div> <h4 data-astro-cid-w7gvw2tg>FREE</h4> <p data-astro-cid-w7gvw2tg><b data-astro-cid-w7gvw2tg>Get started, pay nothing.</b> Libby &amp; your library card, the Free Books page, free trials explained.</p> <a href="/free-books/" data-astro-cid-w7gvw2tg>Start free →</a> </div> <div class="way c" data-astro-cid-w7gvw2tg> <div class="price" data-astro-cid-w7gvw2tg>$1–$6</div> <h4 data-astro-cid-w7gvw2tg>CHEAP</h4> <p data-astro-cid-w7gvw2tg><b data-astro-cid-w7gvw2tg>Buy it cheap, keep it forever.</b> No waitlists, no subscription, listen tonight.</p> <a href="/#price-check" data-astro-cid-w7gvw2tg>See cheap deals →</a> </div> <div class="way u" data-astro-cid-w7gvw2tg> <div class="price" data-astro-cid-w7gvw2tg>1 plan</div> <h4 data-astro-cid-w7gvw2tg>UNLIMITED</h4> <p data-astro-cid-w7gvw2tg><b data-astro-cid-w7gvw2tg>Listen all you want.</b> All-you-can-listen catalogues, credit memberships, and hours-based plans like Spotify Premium (15 hrs/month included) — compared, with current deals.</p> <a href="/unlimited/" data-astro-cid-w7gvw2tg>Compare plans →</a> </div> <div class="start" data-astro-cid-w7gvw2tg> <h4 data-astro-cid-w7gvw2tg>Start Here guide</h4> <p data-astro-cid-w7gvw2tg>Brand new? Apps, headphones, speed listening, and your first five listens — in order.</p> </div> </aside>  </div>  <footer>
+Independent and reader-supported: we may earn a commission from Audible, Libro.fm, or Chirp links — it never changes which option we recommend first, and the free route is always shown. Prices are checked and dated; if a price is past its freshness window we hide the number rather than show a stale one.
+</footer> </div>  </body> </html>
