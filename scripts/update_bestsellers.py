@@ -400,12 +400,12 @@ def build_html(data):
   <meta name="description" content="Live audiobook bestseller charts — NYT, Audible, PopVortex, LibriVox, and Gutenberg AI. Updated daily." />
   <link rel="stylesheet" href="/styles.css" />
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7YCXGE0S34"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5MZPXSL29"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){{dataLayer.push(arguments);}}
     gtag('js', new Date());
-    gtag('config', 'G-7YCXGE0S34');
+    gtag('config', 'G-Y5MZPXSL29');
   </script>
 </head>
 <body class="v2">
