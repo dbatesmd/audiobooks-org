@@ -416,9 +416,8 @@ def build_html(data):
         <a href="/">News</a>
         <a class="hot" href="/bestsellers/">Bestsellers</a>
         <a href="/free-books/">Free</a>
-        <a href="/#price-check">Cheap</a>
+        <a href="/price-check/">Cheap</a>
         <a href="/unlimited/">Unlimited</a>
-        <a href="/#guides">Guides</a>
         <a href="/ai-audiobooks/">AI in Audiobooks</a>
       </nav>
     </header>
