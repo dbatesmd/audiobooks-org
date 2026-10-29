@@ -7,7 +7,140 @@
   <title>Audiobook Bestsellers — Audiobooks.org</title>
   <link rel="canonical" href="https://audiobooks.org/bestsellers.html" />
   <meta name="description" content="Live audiobook bestseller charts — NYT, Audible, PopVortex, LibriVox, and Gutenberg AI. Updated daily." />
-  <link rel="stylesheet" href="/styles.css" />
+  <style>
+.narr-bar{display:flex;justify-content:center;align-items:center;padding:9px 28px;background:#f4f4f2;border-bottom:1px solid #d9d9d2}.narr-inner{display:flex;align-items:center;gap:10px}.narr-label{font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#3a3a36}.narr-group{display:inline-flex;gap:6px}.narr-group button{border:3px solid #c9c9c4;border-radius:4px;padding:5px 16px;font-size:13px;font-weight:700;cursor:pointer;background:#fff;color:#333}.narr-group button.on{border-color:#ff6b00;background:#ffe8d6;color:#8a3c00;font-weight:800}*{box-sizing:border-box}body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#eef0f3;color:#17202a;margin:0}.page{max-width:1220px;margin:0 auto;background:#fffdf8;box-shadow:0 12px 34px #0000001a;border:1px solid #e7e0cf;min-height:100vh}.nav{display:flex;justify-content:space-between;align-items:center;padding:16px 28px;border-bottom:1px solid #eee6d2;background:#fff}.logo{font-weight:900;font-size:22px;color:#1b2a4a;text-decoration:none}.logo em{color:#c47b12;font-style:normal}.links{font-size:13.5px;font-weight:700}.links a{margin-left:16px;color:#46505c;text-decoration:none}.links a.hot{color:#a11;border-bottom:2px solid #c0392b;padding-bottom:2px}.ticker{background:#1b2a4a;color:#eef2f7;padding:9px 28px;font-size:13px;display:flex;gap:10px;flex-wrap:wrap}.ticker b{color:#f5b942;letter-spacing:.08em;font-size:11px;text-transform:uppercase;padding-top:2px}.hero{padding:32px 28px 24px;background:#fdf6e9;border-bottom:1px solid #eee6d2}.kicker{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#a96f0d}.hero h1,.hero h2{font-family:Georgia,serif;font-size:38px;line-height:1.05;margin:8px 0 10px;color:#1b2a4a;max-width:780px}.hero p{font-size:16px;line-height:1.55;color:#3f4a56;max-width:720px;margin:0}.main{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:0;align-items:start}.news{padding:24px 28px;border-right:1px solid #eee6d2}.block{margin-bottom:30px}.block:last-child{margin-bottom:6px}.blockhead{display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:2.5px solid #1b2a4a;padding-bottom:8px;margin-bottom:14px}.blockhead h3{font-family:Georgia,serif;font-size:25px;color:#1b2a4a;margin:0}.blockhead a{font-size:13px;font-weight:800;color:#a96f0d;text-decoration:none;white-space:nowrap}.releases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.rel{border:1px solid #e7e2d4;border-radius:14px;overflow:hidden;background:#fff}.cover{height:92px;display:flex;align-items:flex-end;padding:10px;color:#fff;font-family:Georgia,serif;font-size:15px;line-height:1.2}.rel .body{padding:12px}.rel h5{margin:0 0 4px;font-size:14.5px;color:#1b2a4a}.rel h5 a{color:inherit;text-decoration:none}.rel p{margin:0;font-size:12.5px;color:#66707c;line-height:1.45}.sample{font-size:10.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#9aa3ad}table{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff}th,td{padding:10px 11px;border-bottom:1px solid #e9e6da;text-align:left;vertical-align:top}th{background:#1b2a4a;color:#fff;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase}.best{background:#fff8e6;font-weight:700}.headline{padding:12px 0;border-bottom:1px solid #eee6d2}.headline:last-child{border-bottom:0}.headline .date{font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#a96f0d}.headline h5{margin:3px 0 4px;font-size:16.5px;color:#1b2a4a}.headline h5 a{color:inherit}.headline p{margin:0;font-size:13.5px;color:#55606b;line-height:1.5}footer{padding:20px 28px;background:#1b2a4a;color:#cbd5e1;font-size:12.5px;line-height:1.6}@media(max-width:900px){.main{grid-template-columns:1fr}.news{border-right:0}.releases{grid-template-columns:1fr}.links{display:none}}.rail{padding:24px 22px;background:#fbf8ef;position:sticky;top:0}.rail h3{font-family:Georgia,serif;color:#1b2a4a;margin:0 0 4px;font-size:21px}.rail p.sub{font-size:13px;color:#66707c;margin:0 0 14px;line-height:1.45}.way{border-radius:14px;padding:16px;margin-bottom:12px;border:1.5px solid;position:relative}.way h4{margin:4px 0 6px;font-size:18px}.way p{font-size:13px;line-height:1.5;color:#44505c;margin:0 0 10px}.way a{font-weight:800;font-size:13px;text-decoration:none}.way a:after{content:"";position:absolute;inset:0;border-radius:14px}.way:hover{filter:brightness(.985)}.price{font-family:Georgia,serif;font-size:24px}.f{background:#eaf4ff;border-color:#b9d6fb}.f h4,.f a{color:#1d4ed8}.c{background:#fff3df;border-color:#f0d39a}.c h4,.c a{color:#975a06}.u{background:#e9f5ec;border-color:#b7dfc0}.u h4,.u a{color:#166534}.start{border:1px solid #e7e2d4;background:#fff;border-radius:14px;padding:16px;position:relative}.start h4{font-family:Georgia,serif;color:#1b2a4a;margin:0 0 6px}.start p{font-size:13px;color:#55606b;line-height:1.5;margin:0}.start a:after{content:"";position:absolute;inset:0;border-radius:14px}.start:hover{filter:brightness(.985)}@media(max-width:900px){.rail{position:static}}
+/* ── Badges / Pills ──────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.badge-teal   { background: var(--teal-pale);  color: var(--teal-dark); }
+.badge-amber  { background: var(--amber-mid);  color: var(--amber-dark); }
+.badge-purple { background: var(--purple-mid); color: var(--purple-dark); }
+.badge-deal   { background: var(--amber-light);color: #633806; }
+.badge-trial  { background: var(--teal-light); color: var(--teal-dark); }
+.badge-unltd  { background: var(--purple-light);color: var(--purple-dark); }
+.badge-new    { background: var(--teal-light); color: var(--teal-dark); }
+.badge-hot    { background: #FAECE7; color: #712B13; }
+.badge-classic{ background: var(--blue-light); color: #0C447C; }
+.section-meta { font-size: 0.8rem; color: var(--text-muted); }
+/* ── CHART TABLES ────────────────────────────────────────────── */
+.chart-wrap {
+  border: 1px solid var(--border); border-radius: var(--radius-lg);
+  overflow: hidden; margin-bottom: 24px;
+}
+.chart-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px; background: var(--bg-off);
+  border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 10px;
+}
+.chart-source { display: flex; align-items: center; gap: 10px; }
+.chart-logo {
+  font-size: 0.78rem; font-weight: 600; padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+.chart-date  { font-size: 0.78rem; color: var(--text-muted); }
+.chart-tabs  { display: flex; gap: 6px; }
+.chart-list { display: none; }
+.chart-list.active { display: block; }
+.book-tags { display: flex; gap: 4px; margin-top: 3px; }
+.chart-note {
+  padding: 10px 18px; background: var(--bg-off);
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem; color: var(--text-muted);
+}
+.chart-note a { color: var(--teal-mid); }
+.chart-header { flex-direction: column; align-items: flex-start; }
+.ai-legend {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.8rem; color: var(--purple-dark);
+  background: var(--purple-light); padding: 6px 14px;
+  border-radius: 20px; border: 1px solid var(--purple-mid); margin-top: 12px;
+}
+/* Main column */
+.bs-main { padding: 24px 28px 32px; }
+.bs-disclosure {
+  background: #fff8e6; border: 1px solid #e7e2d4; border-radius: 10px;
+  padding: 12px 16px; font-size: 13px; color: #5b4a1f; margin-bottom: 20px;
+}
+.chart-jump { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 20px; }
+.chart-jump a {
+  font-size: 0.8rem; font-weight: 600; padding: 6px 14px;
+  border-radius: 20px; border: 1.5px solid #e7e2d4; color: #46505c; background: #fff;
+  transition: all 0.12s;
+}
+.chart-jump a:hover { background: #fdf6e9; border-color: #c47b12; color: #a96f0d; }
+.blockhead .section-meta { font-size: 12.5px; color: #66707c; }
+/* Charts inside the v2 shell (base classes defined above still apply) */
+.chart-wrap {
+  border: 1px solid #e7e2d4; border-radius: 14px;
+  overflow: hidden; margin-bottom: 24px; background: #fff;
+}
+.chart-header { background: #fdf6e9; border-bottom: 1px solid #eee6d2; }
+.badge-ai   { background: var(--purple-light); color: var(--purple-dark); border: 1px solid var(--purple-mid); }
+.badge-free { background: var(--teal-light); color: var(--teal-dark); }
+.badge-source { background: var(--bg-off); color: var(--text-muted); border: 1px solid var(--border); }
+.chart-note { background: #fdf6e9; border-top: 1px solid #eee6d2; color: #66707c; }
+.chart-hint { font-size: 12.5px; color: #66707c; }
+.chart-reset {
+  font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer;
+  padding: 6px 14px; border-radius: 20px; background: #fff;
+  border: 1.5px solid #e7e2d4; color: #46505c; transition: all 0.12s;
+}
+.chart-reset:hover { background: #fdf6e9; border-color: #c47b12; color: #a96f0d; }
+.chart-table-wrap {
+  overflow-x: auto; border: 1px solid #e7e2d4; border-radius: 14px;
+  background: #fff; margin-bottom: 24px;
+}
+table.chart-table { border-collapse: collapse; width: 100%; min-width: 900px; }
+.chart-table th.chart-th {
+  background: #1b2a4a; color: #fff; text-align: left; vertical-align: top;
+  padding: 12px; width: 20%; cursor: grab;
+  border-right: 1px solid rgba(255,255,255,.14);
+}
+.chart-table th.chart-th:last-child { border-right: none; }
+.chart-table th.chart-th.dragging { opacity: .55; }
+.th-top { display: flex; align-items: center; gap: 6px; }
+.th-label { font-family: Georgia, serif; font-size: 16px; font-weight: 700; flex: 1; }
+.col-move {
+  font: inherit; font-size: 10px; line-height: 1; cursor: pointer;
+  width: 20px; height: 20px; border-radius: 50%; flex: none; padding: 0;
+  border: 1px solid rgba(255,255,255,.45); background: transparent; color: #f5b942;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.col-move:hover { background: rgba(255,255,255,.16); }
+.th-sub { font-size: 11px; font-weight: 400; color: #cbd5e1; margin-top: 5px; line-height: 1.45; }
+.chart-table td.chart-cell {
+  vertical-align: top; padding: 12px; width: 20%;
+  border-top: 1px solid #e9e6da; border-right: 1px solid #e9e6da;
+}
+.chart-table td.chart-cell:last-child { border-right: none; }
+.chart-table tbody tr:hover td.chart-cell { background: #fffdf8; }
+.chart-cell .cell-rank {
+  font-family: Georgia, serif; font-size: 20px; font-weight: 700;
+  color: #98a2b3; line-height: 1; margin-bottom: 6px;
+}
+.chart-cell .cell-rank.top { color: #c47b12; }
+.cell-title {
+  font-weight: 700; font-size: 14.5px; color: #17202a; line-height: 1.3;
+  text-decoration: none; display: inline-block;
+}
+.cell-title:hover { color: #a96f0d; text-decoration: underline; }
+.cell-author { font-size: 12.5px; color: #66707c; margin: 3px 0 0; }
+.chart-cell .book-tags { margin-top: 7px; }
+.chart-cell.empty { background: #fbfaf6; }
+.cell-na { font-size: 13px; color: #66707c; margin: 0; }
+.bs-main { padding: 20px 16px 28px; }
+.bs-main{padding:24px 28px}
+.chart-cell{position:relative}
+.chart-cell.narr-hidden .cell-info,.chart-cell.narr-hidden .cell-rank{visibility:hidden}
+.chart-cell.narr-hidden::after{content:'—';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#9aa3ad;font-size:18px}
+
+  </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5MZPXSL29"></script>
   <script>
@@ -34,10 +167,10 @@
     <div class="narr-bar">
       <div class="narr-inner">
         <span class="narr-label">Narration:</span>
-        <span class="narr-group" role="img" aria-label="Narration filter (set on the home page)">
-          <span class="nbtn">Human</span>
-          <span class="nbtn on">Both</span>
-          <span class="nbtn">AI</span>
+        <span class="narr-group" role="group" aria-label="Narration filter">
+          <button type="button" data-narr="human">Human</button>
+          <button type="button" data-narr="both">Both</button>
+          <button type="button" data-narr="ai">AI</button>
         </span>
       </div>
     </div>
@@ -122,35 +255,35 @@
           </tr>
         </thead>
         <tbody>
-      <tr><td class="chart-cell" data-key="nyt-fiction">
+      <tr><td class="chart-cell" data-key="nyt-fiction" data-narration="human">
         <div class="cell-rank top">1</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=THRESHING%20DAY" target="_blank" rel="noopener">THRESHING DAY</a>
           <p class="cell-author">Rebecca Yarros</p>
           <div class="book-tags"><span class="badge badge-hot">🔥 #1</span></div>
         </div></td>
-          <td class="chart-cell" data-key="nyt-nonfiction">
+          <td class="chart-cell" data-key="nyt-nonfiction" data-narration="human">
         <div class="cell-rank top">1</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=SWAN%20SONG" target="_blank" rel="noopener">SWAN SONG</a>
           <p class="cell-author">Charles Spencer</p>
           <div class="book-tags"><span class="badge badge-hot">🔥 #1</span></div>
         </div></td>
-          <td class="chart-cell" data-key="popvortex">
+          <td class="chart-cell" data-key="popvortex" data-narration="human ai">
         <div class="cell-rank top">1</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=A+Court+of+Splintered+Harmony+%28A+Court+of+Thorns+and+Roses%29+Sarah+J.+Maas" target="_blank" rel="noopener">A Court of Splintered Harmony (A Court of Thorns and Roses)</a>
           <p class="cell-author">Sarah J. Maas</p>
           <div class="book-tags"><span class="badge badge-hot">🔥 #1</span></div>
         </div></td>
-          <td class="chart-cell" data-key="librivox">
+          <td class="chart-cell" data-key="librivox" data-narration="human">
         <div class="cell-rank top">1</div>
         <div class="cell-info">
           <a class="cell-title" href="https://librivox.org/the-count-of-monte-cristo-by-alexandre-dumas/" target="_blank" rel="noopener">Count of Monte Cristo</a>
           <p class="cell-author">Alexandre Dumas</p>
           <div class="book-tags"><span class="badge badge-hot">🔥 #1</span><span class="badge badge-source">49:43:15</span><span class="badge badge-free">Free</span></div>
         </div></td>
-          <td class="chart-cell" data-key="gutenberg-ai">
+          <td class="chart-cell" data-key="gutenberg-ai" data-narration="ai">
         <div class="cell-rank top">1</div>
         <div class="cell-info">
           <a class="cell-title" href="https://archive.org/details/synapseml_gutenberg_frankenstein_by_mary_wollstonecraft_she" target="_blank" rel="noopener">Frankenstein</a>
@@ -158,35 +291,35 @@
           <div class="book-tags"><span class="badge badge-hot">🔥 #1</span><span class="badge badge-source">~8 hrs</span><span class="badge badge-free">Free</span></div>
         </div></td>
           </tr>
-      <tr><td class="chart-cell" data-key="nyt-fiction">
+      <tr><td class="chart-cell" data-key="nyt-fiction" data-narration="human">
         <div class="cell-rank top">2</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=THE%20CALAMITY%20CLUB" target="_blank" rel="noopener">THE CALAMITY CLUB</a>
           <p class="cell-author">Kathryn Stockett</p>
           <div class="book-tags"><span class="badge badge-classic">5 wks on list</span></div>
         </div></td>
-          <td class="chart-cell" data-key="nyt-nonfiction">
+          <td class="chart-cell" data-key="nyt-nonfiction" data-narration="human">
         <div class="cell-rank top">2</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=ONE%20MAN%20IN" target="_blank" rel="noopener">ONE MAN IN</a>
           <p class="cell-author">Christian Craighead</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="popvortex">
+          <td class="chart-cell" data-key="popvortex" data-narration="human ai">
         <div class="cell-rank top">2</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=In+the+Shadow+of+Eight+Collin+Gosselin" target="_blank" rel="noopener">In the Shadow of Eight</a>
           <p class="cell-author">Collin Gosselin</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="librivox">
+          <td class="chart-cell" data-key="librivox" data-narration="human">
         <div class="cell-rank top">2</div>
         <div class="cell-info">
           <a class="cell-title" href="https://librivox.org/letters-of-two-brides-by-honore-de-balzac/" target="_blank" rel="noopener">Letters of Two Brides</a>
           <p class="cell-author">Honoré de Balzac</p>
           <div class="book-tags"><span class="badge badge-source">9:09:20</span><span class="badge badge-free">Free</span></div>
         </div></td>
-          <td class="chart-cell" data-key="gutenberg-ai">
+          <td class="chart-cell" data-key="gutenberg-ai" data-narration="ai">
         <div class="cell-rank top">2</div>
         <div class="cell-info">
           <a class="cell-title" href="https://archive.org/details/synapseml_gutenberg_dracula_by_bram_stoker" target="_blank" rel="noopener">Dracula</a>
@@ -194,35 +327,35 @@
           <div class="book-tags"><span class="badge badge-source">~16 hrs</span><span class="badge badge-free">Free</span></div>
         </div></td>
           </tr>
-      <tr><td class="chart-cell" data-key="nyt-fiction">
+      <tr><td class="chart-cell" data-key="nyt-fiction" data-narration="human">
         <div class="cell-rank top">3</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=DUNGEON%20CRAWLER%20CARL" target="_blank" rel="noopener">DUNGEON CRAWLER CARL</a>
           <p class="cell-author">Matt Dinniman</p>
           <div class="book-tags"><span class="badge badge-classic">17 wks on list</span></div>
         </div></td>
-          <td class="chart-cell" data-key="nyt-nonfiction">
+          <td class="chart-cell" data-key="nyt-nonfiction" data-narration="human">
         <div class="cell-rank top">3</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=THIS%20IS%20ME" target="_blank" rel="noopener">THIS IS ME</a>
           <p class="cell-author">Hayden Panettiere</p>
           <div class="book-tags"><span class="badge badge-classic">3 wks on list</span></div>
         </div></td>
-          <td class="chart-cell" data-key="popvortex">
+          <td class="chart-cell" data-key="popvortex" data-narration="human ai">
         <div class="cell-rank top">3</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=The+Hollow+Michael+Connelly" target="_blank" rel="noopener">The Hollow</a>
           <p class="cell-author">Michael Connelly</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="librivox">
+          <td class="chart-cell" data-key="librivox" data-narration="human">
         <div class="cell-rank top">3</div>
         <div class="cell-info">
           <a class="cell-title" href="https://librivox.org/bleak-house-by-charles-dickens/" target="_blank" rel="noopener">Bleak House</a>
           <p class="cell-author">Charles Dickens</p>
           <div class="book-tags"><span class="badge badge-source">43:30:19</span><span class="badge badge-free">Free</span></div>
         </div></td>
-          <td class="chart-cell" data-key="gutenberg-ai">
+          <td class="chart-cell" data-key="gutenberg-ai" data-narration="ai">
         <div class="cell-rank top">3</div>
         <div class="cell-info">
           <a class="cell-title" href="https://archive.org/details/synapseml_gutenberg_pride_and_prejudice_by_jane_austen" target="_blank" rel="noopener">Pride and Prejudice</a>
@@ -230,35 +363,35 @@
           <div class="book-tags"><span class="badge badge-source">~12 hrs</span><span class="badge badge-free">Free</span></div>
         </div></td>
           </tr>
-      <tr><td class="chart-cell" data-key="nyt-fiction">
+      <tr><td class="chart-cell" data-key="nyt-fiction" data-narration="human">
         <div class="cell-rank ">4</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=VERITY" target="_blank" rel="noopener">VERITY</a>
           <p class="cell-author">Colleen Hoover</p>
           <div class="book-tags"><span class="badge badge-classic">20 wks on list</span></div>
         </div></td>
-          <td class="chart-cell" data-key="nyt-nonfiction">
+          <td class="chart-cell" data-key="nyt-nonfiction" data-narration="human">
         <div class="cell-rank ">4</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=HOW%20TO%20EAT%20AN%20ELEPHANT" target="_blank" rel="noopener">HOW TO EAT AN ELEPHANT</a>
           <p class="cell-author">Sarah Longwell</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="popvortex">
+          <td class="chart-cell" data-key="popvortex" data-narration="human ai">
         <div class="cell-rank ">4</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=The+Witch+Freida+McFadden" target="_blank" rel="noopener">The Witch</a>
           <p class="cell-author">Freida McFadden</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="librivox">
+          <td class="chart-cell" data-key="librivox" data-narration="human">
         <div class="cell-rank ">4</div>
         <div class="cell-info">
           <a class="cell-title" href="https://librivox.org/penguin-island-by-anatole-france/" target="_blank" rel="noopener">Penguin Island</a>
           <p class="cell-author">Anatole France</p>
           <div class="book-tags"><span class="badge badge-source">9:04:31</span><span class="badge badge-free">Free</span></div>
         </div></td>
-          <td class="chart-cell" data-key="gutenberg-ai">
+          <td class="chart-cell" data-key="gutenberg-ai" data-narration="ai">
         <div class="cell-rank ">4</div>
         <div class="cell-info">
           <a class="cell-title" href="https://archive.org/details/synapseml_gutenberg_the_picture_of_dorian_gray_by_oscar_wi" target="_blank" rel="noopener">The Picture of Dorian Gray</a>
@@ -266,35 +399,35 @@
           <div class="book-tags"><span class="badge badge-source">~9 hrs</span><span class="badge badge-free">Free</span></div>
         </div></td>
           </tr>
-      <tr><td class="chart-cell" data-key="nyt-fiction">
+      <tr><td class="chart-cell" data-key="nyt-fiction" data-narration="human">
         <div class="cell-rank ">5</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=CARL%27S%20DOOMSDAY%20SCENARIO" target="_blank" rel="noopener">CARL'S DOOMSDAY SCENARIO</a>
           <p class="cell-author">Matt Dinniman</p>
           <div class="book-tags"><span class="badge badge-classic">13 wks on list</span></div>
         </div></td>
-          <td class="chart-cell" data-key="nyt-nonfiction">
+          <td class="chart-cell" data-key="nyt-nonfiction" data-narration="human">
         <div class="cell-rank ">5</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=THE%20STEPS" target="_blank" rel="noopener">THE STEPS</a>
           <p class="cell-author">Sylvester Stallone</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="popvortex">
+          <td class="chart-cell" data-key="popvortex" data-narration="human ai">
         <div class="cell-rank ">5</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=The+Calamity+Club%3A+A+Novel+Kathryn+Stockett" target="_blank" rel="noopener">The Calamity Club: A Novel</a>
           <p class="cell-author">Kathryn Stockett</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="librivox">
+          <td class="chart-cell" data-key="librivox" data-narration="human">
         <div class="cell-rank ">5</div>
         <div class="cell-info">
           <a class="cell-title" href="https://librivox.org/this-side-of-paradise-by-f-scott-fitzgerald" target="_blank" rel="noopener">This Side of Paradise</a>
           <p class="cell-author">F. Scott Fitzgerald</p>
           <div class="book-tags"><span class="badge badge-source">8:56:24</span><span class="badge badge-free">Free</span></div>
         </div></td>
-          <td class="chart-cell" data-key="gutenberg-ai">
+          <td class="chart-cell" data-key="gutenberg-ai" data-narration="ai">
         <div class="cell-rank ">5</div>
         <div class="cell-info">
           <a class="cell-title" href="https://archive.org/details/synapseml_gutenberg_the_call_of_the_wild_by_jack_london" target="_blank" rel="noopener">The Call of the Wild</a>
@@ -302,35 +435,35 @@
           <div class="book-tags"><span class="badge badge-source">~3 hrs</span><span class="badge badge-free">Free</span></div>
         </div></td>
           </tr>
-      <tr><td class="chart-cell" data-key="nyt-fiction">
+      <tr><td class="chart-cell" data-key="nyt-fiction" data-narration="human">
         <div class="cell-rank ">6</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=THE%20DUNGEON%20ANARCHIST%27S%20COOKBOOK" target="_blank" rel="noopener">THE DUNGEON ANARCHIST'S COOKBOOK</a>
           <p class="cell-author">Matt Dinniman</p>
           <div class="book-tags"><span class="badge badge-classic">12 wks on list</span></div>
         </div></td>
-          <td class="chart-cell" data-key="nyt-nonfiction">
+          <td class="chart-cell" data-key="nyt-nonfiction" data-narration="human">
         <div class="cell-rank ">6</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=THE%20PERILOUS%20FIGHT" target="_blank" rel="noopener">THE PERILOUS FIGHT</a>
           <p class="cell-author">Colin Kaepernick with Nick Chiles</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="popvortex">
+          <td class="chart-cell" data-key="popvortex" data-narration="human ai">
         <div class="cell-rank ">6</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=Contend+Philip+Anthony+Mitchell" target="_blank" rel="noopener">Contend</a>
           <p class="cell-author">Philip Anthony Mitchell</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="librivox">
+          <td class="chart-cell" data-key="librivox" data-narration="human">
         <div class="cell-rank ">6</div>
         <div class="cell-info">
           <a class="cell-title" href="https://librivox.org/the-secret-garden-by-frances-hodgson-burnett/" target="_blank" rel="noopener">Secret Garden</a>
           <p class="cell-author">Frances Hodgson Burnett</p>
           <div class="book-tags"><span class="badge badge-source">9:08:25</span><span class="badge badge-free">Free</span></div>
         </div></td>
-          <td class="chart-cell" data-key="gutenberg-ai">
+          <td class="chart-cell" data-key="gutenberg-ai" data-narration="ai">
         <div class="cell-rank ">6</div>
         <div class="cell-info">
           <a class="cell-title" href="https://archive.org/details/synapseml_gutenberg_romeo_and_juliet_by_william_shakespeare" target="_blank" rel="noopener">Romeo and Juliet</a>
@@ -338,35 +471,35 @@
           <div class="book-tags"><span class="badge badge-source">~2 hrs</span><span class="badge badge-free">Free</span></div>
         </div></td>
           </tr>
-      <tr><td class="chart-cell" data-key="nyt-fiction">
+      <tr><td class="chart-cell" data-key="nyt-fiction" data-narration="human">
         <div class="cell-rank ">7</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=MAD%20MABEL" target="_blank" rel="noopener">MAD MABEL</a>
           <p class="cell-author">Sally Hepworth</p>
           <div class="book-tags"><span class="badge badge-classic">3 wks on list</span></div>
         </div></td>
-          <td class="chart-cell" data-key="nyt-nonfiction">
+          <td class="chart-cell" data-key="nyt-nonfiction" data-narration="human">
         <div class="cell-rank ">7</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=AMERICAN%20SCOUNDREL" target="_blank" rel="noopener">AMERICAN SCOUNDREL</a>
           <p class="cell-author">Kai Bird with Susan Goldmark</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="popvortex">
+          <td class="chart-cell" data-key="popvortex" data-narration="human ai">
         <div class="cell-rank ">7</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=Misery+%28Unabridged%29+Stephen+King" target="_blank" rel="noopener">Misery (Unabridged)</a>
           <p class="cell-author">Stephen King</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="librivox">
+          <td class="chart-cell" data-key="librivox" data-narration="human">
         <div class="cell-rank ">7</div>
         <div class="cell-info">
           <a class="cell-title" href="https://librivox.org/twenty-years-after-by-alexandre-dumas/" target="_blank" rel="noopener">Twenty Years After</a>
           <p class="cell-author">Alexandre Dumas</p>
           <div class="book-tags"><span class="badge badge-source">25:43:08</span><span class="badge badge-free">Free</span></div>
         </div></td>
-          <td class="chart-cell" data-key="gutenberg-ai">
+          <td class="chart-cell" data-key="gutenberg-ai" data-narration="ai">
         <div class="cell-rank ">7</div>
         <div class="cell-info">
           <a class="cell-title" href="https://archive.org/details/synapseml_gutenberg_moby_dick_by_herman_melville" target="_blank" rel="noopener">Moby Dick</a>
@@ -374,35 +507,35 @@
           <div class="book-tags"><span class="badge badge-source">~24 hrs</span><span class="badge badge-free">Free</span></div>
         </div></td>
           </tr>
-      <tr><td class="chart-cell" data-key="nyt-fiction">
+      <tr><td class="chart-cell" data-key="nyt-fiction" data-narration="human">
         <div class="cell-rank ">8</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=THE%20GATE%20OF%20THE%20FERAL%20GODS" target="_blank" rel="noopener">THE GATE OF THE FERAL GODS</a>
           <p class="cell-author">Matt Dinniman</p>
           <div class="book-tags"><span class="badge badge-classic">7 wks on list</span></div>
         </div></td>
-          <td class="chart-cell" data-key="nyt-nonfiction">
+          <td class="chart-cell" data-key="nyt-nonfiction" data-narration="human">
         <div class="cell-rank ">8</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=THE%20BODY%20KEEPS%20THE%20SCORE" target="_blank" rel="noopener">THE BODY KEEPS THE SCORE</a>
           <p class="cell-author">Bessel van der Kolk</p>
           <div class="book-tags"><span class="badge badge-classic">71 wks on list</span></div>
         </div></td>
-          <td class="chart-cell" data-key="popvortex">
+          <td class="chart-cell" data-key="popvortex" data-narration="human ai">
         <div class="cell-rank ">8</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=Dungeon+Crawler+Carl%3A+Dungeon+Crawler+Carl%2C+Book+1+%28Unabridged%29+Matt+Dinniman" target="_blank" rel="noopener">Dungeon Crawler Carl: Dungeon Crawler Carl, Book 1 (Unabridged)</a>
           <p class="cell-author">Matt Dinniman</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="librivox">
+          <td class="chart-cell" data-key="librivox" data-narration="human">
         <div class="cell-rank ">8</div>
         <div class="cell-info">
           <a class="cell-title" href="https://librivox.org/the-adventures-of-huckleberry-finn-by-mark-twain/" target="_blank" rel="noopener">Adventures of Huckleberry Finn</a>
           <p class="cell-author">Mark Twain</p>
           <div class="book-tags"><span class="badge badge-source">10:42:07</span><span class="badge badge-free">Free</span></div>
         </div></td>
-          <td class="chart-cell" data-key="gutenberg-ai">
+          <td class="chart-cell" data-key="gutenberg-ai" data-narration="ai">
         <div class="cell-rank ">8</div>
         <div class="cell-info">
           <a class="cell-title" href="https://archive.org/details/synapseml_gutenberg_alice_s_adventures_in_wonderland_by_lewi" target="_blank" rel="noopener">Alice's Adventures in Wonderland</a>
@@ -410,35 +543,35 @@
           <div class="book-tags"><span class="badge badge-source">~3 hrs</span><span class="badge badge-free">Free</span></div>
         </div></td>
           </tr>
-      <tr><td class="chart-cell" data-key="nyt-fiction">
+      <tr><td class="chart-cell" data-key="nyt-fiction" data-narration="human">
         <div class="cell-rank ">9</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=THE%20INFINITE%20EXTENT" target="_blank" rel="noopener">THE INFINITE EXTENT</a>
           <p class="cell-author">Dennis E. Taylor</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="nyt-nonfiction">
+          <td class="chart-cell" data-key="nyt-nonfiction" data-narration="human">
         <div class="cell-rank ">9</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=REGIME%20CHANGE" target="_blank" rel="noopener">REGIME CHANGE</a>
           <p class="cell-author">Maggie Haberman and Jonathan Swan</p>
           <div class="book-tags"><span class="badge badge-classic">4 wks on list</span></div>
         </div></td>
-          <td class="chart-cell" data-key="popvortex">
+          <td class="chart-cell" data-key="popvortex" data-narration="human ai">
         <div class="cell-rank ">9</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=A+Court+of+Thorns+and+Roses+%28Court+of+Thorns+and+Roses%29+Sarah+J.+Maas" target="_blank" rel="noopener">A Court of Thorns and Roses (Court of Thorns and Roses)</a>
           <p class="cell-author">Sarah J. Maas</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="librivox">
+          <td class="chart-cell" data-key="librivox" data-narration="human">
         <div class="cell-rank ">9</div>
         <div class="cell-info">
           <a class="cell-title" href="https://librivox.org/heart-of-darkness-by-joseph-conrad" target="_blank" rel="noopener">Heart of Darkness</a>
           <p class="cell-author">Joseph Conrad</p>
           <div class="book-tags"><span class="badge badge-source">4:10:12</span><span class="badge badge-free">Free</span></div>
         </div></td>
-          <td class="chart-cell" data-key="gutenberg-ai">
+          <td class="chart-cell" data-key="gutenberg-ai" data-narration="ai">
         <div class="cell-rank ">9</div>
         <div class="cell-info">
           <a class="cell-title" href="https://archive.org/details/synapseml_gutenberg_the_scarlet_letter_by_nathaniel_hawthorne" target="_blank" rel="noopener">The Scarlet Letter</a>
@@ -446,35 +579,35 @@
           <div class="book-tags"><span class="badge badge-source">~8 hrs</span><span class="badge badge-free">Free</span></div>
         </div></td>
           </tr>
-      <tr><td class="chart-cell" data-key="nyt-fiction">
+      <tr><td class="chart-cell" data-key="nyt-fiction" data-narration="human">
         <div class="cell-rank ">10</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=THEO%20OF%20GOLDEN" target="_blank" rel="noopener">THEO OF GOLDEN</a>
           <p class="cell-author">Allen Levi</p>
           <div class="book-tags"><span class="badge badge-classic">10 wks on list</span></div>
         </div></td>
-          <td class="chart-cell" data-key="nyt-nonfiction">
+          <td class="chart-cell" data-key="nyt-nonfiction" data-narration="human">
         <div class="cell-rank ">10</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=THE%20AMERICAN%20WAY%20OF%20KILLING" target="_blank" rel="noopener">THE AMERICAN WAY OF KILLING</a>
           <p class="cell-author">Malcolm Gladwell</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="popvortex">
+          <td class="chart-cell" data-key="popvortex" data-narration="human ai">
         <div class="cell-rank ">10</div>
         <div class="cell-info">
           <a class="cell-title" href="https://www.audible.com/search?tag=audiobooksorg&keywords=Mad+Mabel+Sally+Hepworth" target="_blank" rel="noopener">Mad Mabel</a>
           <p class="cell-author">Sally Hepworth</p>
           <div class="book-tags"></div>
         </div></td>
-          <td class="chart-cell" data-key="librivox">
+          <td class="chart-cell" data-key="librivox" data-narration="human">
         <div class="cell-rank ">10</div>
         <div class="cell-info">
           <a class="cell-title" href="https://librivox.org/the-odyssey-by-homer/" target="_blank" rel="noopener">Odyssey</a>
           <p class="cell-author">Homer</p>
           <div class="book-tags"><span class="badge badge-source">11:18:25</span><span class="badge badge-free">Free</span></div>
         </div></td>
-          <td class="chart-cell" data-key="gutenberg-ai">
+          <td class="chart-cell" data-key="gutenberg-ai" data-narration="ai">
         <div class="cell-rank ">10</div>
         <div class="cell-info">
           <a class="cell-title" href="https://archive.org/details/synapseml_gutenberg_the_yellow_wallpaper_by_charlotte_perkins" target="_blank" rel="noopener">The Yellow Wallpaper</a>
@@ -594,10 +727,37 @@
   }
 })();
 </script>
+      
+<script>
+(function () {
+  var KEY = 'ab-narration';
+  var mode = 'both';
+  try { mode = localStorage.getItem(KEY) || 'both'; } catch (e) {}
+  if (['human', 'both', 'ai'].indexOf(mode) < 0) mode = 'both';
+  var btns = document.querySelectorAll('.narr-group button');
+  function apply() {
+    btns.forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-narr') === mode); });
+    var cells = document.querySelectorAll('#chart-table td.chart-cell');
+    cells.forEach(function (td) {
+      var n = td.getAttribute('data-narration') || 'human ai';
+      var show = (mode === 'both') || (n.indexOf(mode) >= 0);
+      td.classList.toggle('narr-hidden', !show);
+    });
+  }
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      mode = b.getAttribute('data-narr');
+      try { localStorage.setItem(KEY, mode); } catch (e) {}
+      apply();
+    });
+  });
+  apply();
+})();
+</script>
     </main>
 
     <footer>
-      Independent and reader-supported: we may earn a commission from Audible, Libro.fm, or Chirp links — it never changes which option we recommend first, and the free route is always shown. Charts updated October 29, 2026.
+      Independent and reader-supported: we may earn a commission from Audible, Libro.fm, or Chirp links — it never changes which option we recommend first, and the free route is always shown. Prices are checked and dated; if a price is past its freshness window we hide the number rather than show a stale one. Charts updated October 29, 2026.
     </footer>
   </div>
 
