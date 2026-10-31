@@ -180,6 +180,37 @@ def get_gutenberg_ai():
 
 EMOJI = ["🥇","🥈","🥉","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟"]
 
+
+# ── Internal price-check links (chart -> our own pages) ─────────────────
+# chart-links.json (repo root) maps normalised titles to price-check slugs.
+# A matching chart cell links to OUR /price-check/<slug>/ page instead of
+# straight out to a store; unmatched titles keep their outbound links.
+import json as _json
+def _norm_title(t):
+    t = (t or '').lower().replace('&', ' and ')
+    t = re.sub(r"['’]", '', t)
+    t = re.sub(r'[^a-z0-9]+', ' ', t).strip()
+    t = re.sub(r'\s+', ' ', t)
+    if t.startswith('the '):
+        t = t[4:]
+    return t
+try:
+    _mpath = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'chart-links.json')
+    with open(_mpath, encoding='utf-8') as _f:
+        CHART_LINKS = dict(sorted(((k, v) for k, v in _json.load(_f).items() if not k.startswith('_')), key=lambda kv: -len(kv[0])))
+except Exception:
+    CHART_LINKS = {}
+def chart_link_for(title):
+    if not CHART_LINKS:
+        return None
+    t = _norm_title(re.sub(r'\s*\([^)]*\)\s*$', '', title or ''))
+    if t in CHART_LINKS:
+        return CHART_LINKS[t]
+    for key, slug in CHART_LINKS.items():
+        if t.startswith(key + ' ') or key.startswith(t + ' '):
+            return slug
+    return None
+
 def chart_cell_html(book, show_ai=True, show_weeks=False, show_duration=False, show_free=False):
     """Inner markup for one chart-table cell: rank, linked title, author, badges."""
     rank     = book.get("rank", 0)
@@ -198,10 +229,16 @@ def chart_cell_html(book, show_ai=True, show_weeks=False, show_duration=False, s
     if show_duration and duration: badges += f'<span class="badge badge-source">{duration}</span>'
     if show_free:                 badges += '<span class="badge badge-free">Free</span>'
 
+    internal = chart_link_for(title)
+    if internal:
+        title_link = f'<a class="cell-title" href="/price-check/{internal}/">{title}</a>'
+    else:
+        title_link = f'<a class="cell-title" href="{link}" target="_blank" rel="noopener">{title}</a>'
+
     return f"""
         <div class="cell-rank {top3}">{rank}</div>
         <div class="cell-info">
-          <a class="cell-title" href="{link}" target="_blank" rel="noopener">{title}</a>
+          {title_link}
           <p class="cell-author">{author}</p>
           <div class="book-tags">{badges}</div>
         </div>"""
