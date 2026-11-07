@@ -666,6 +666,7 @@ def build_html(data):
         <a href="#col-popvortex">PopVortex</a>
         <a href="#col-librivox">LibriVox 🔓</a>
         <a href="#col-gutenberg-ai">Gutenberg AI 🔓</a>
+        <a href="/awards/">🏆 Audiobook awards</a>
       </div>
 
       <div class="blockhead">
