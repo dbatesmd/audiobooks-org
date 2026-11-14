@@ -211,7 +211,7 @@ def chart_link_for(title):
             return slug
     return None
 
-def chart_cell_html(book, show_ai=True, show_weeks=False, show_duration=False, show_free=False):
+def chart_cell_html(book, show_ai=True, show_weeks=False, show_duration=False, show_free=False, title_display=None):
     """Inner markup for one chart-table cell: rank, linked title, author, badges."""
     rank     = book.get("rank", 0)
     title    = book.get("title", "")
@@ -230,10 +230,11 @@ def chart_cell_html(book, show_ai=True, show_weeks=False, show_duration=False, s
     if show_free:                 badges += '<span class="badge badge-free">Free</span>'
 
     internal = chart_link_for(title)
+    display_title = title_display or title
     if internal:
-        title_link = f'<a class="cell-title" href="/price-check/{internal}/">{title}</a>'
+        title_link = f'<a class="cell-title" href="/price-check/{internal}/">{display_title}</a>'
     else:
-        title_link = f'<a class="cell-title" href="{link}" target="_blank" rel="noopener">{title}</a>'
+        title_link = f'<a class="cell-title" href="{link}" target="_blank" rel="noopener">{display_title}</a>'
 
     return f"""
         <div class="cell-rank {top3}">{rank}</div>
@@ -242,6 +243,13 @@ def chart_cell_html(book, show_ai=True, show_weeks=False, show_duration=False, s
           <p class="cell-author">{author}</p>
           <div class="book-tags">{badges}</div>
         </div>"""
+
+
+# Display-title corrections for the LibriVox column (exact match only).
+# The LibriVox feed drops the leading "The" from this catalogue title;
+# the map fixes the DISPLAY text only — chart_link_for() still resolves
+# the internal link from the feed's original title.
+LIBRIVOX_TITLE_DISPLAY = {"Count of Monte Cristo": "The Count of Monte Cristo"}
 
 
 def build_chart_table(data):
@@ -294,7 +302,7 @@ def build_chart_table(data):
         for (key, _label, _sub, _books, _kwargs), (by_rank, kwargs, books) in zip(columns, ranked):
             book = by_rank.get(r)
             if book is not None:
-                cells += f'<td class="chart-cell" data-key="{key}" data-narration="{cell_narration(key, book)}">{chart_cell_html(book, **kwargs)}</td>\n          '
+                cells += f'<td class="chart-cell" data-key="{key}" data-narration="{cell_narration(key, book)}">{chart_cell_html(book, title_display=(LIBRIVOX_TITLE_DISPLAY.get(book.get("title", "")) if key == "librivox" else None), **kwargs)}</td>\n          '
             elif r == 1 and not books:
                 cells += f'<td class="chart-cell na" data-key="{key}" data-narration="human ai"><p class="cell-na">Data unavailable — will retry on next update</p></td>\n          '
             else:
@@ -646,13 +654,12 @@ def build_html(data):
       </div>
     </div>
 
-    <div class="ticker"><b>Latest</b><span>Charts refreshed daily — NYT, Audible, Apple, LibriVox and Gutenberg AI bestsellers · Last updated {TODAY}</span></div>
+    <div class="ticker"><b>Latest</b><span>Charts refreshed daily — NYT Fiction, NYT Nonfiction, PopVortex, LibriVox and Gutenberg AI bestsellers · Last updated {TODAY}</span></div>
 
     <section class="hero">
       <div class="kicker">Live charts</div>
       <h1>Audiobook Bestsellers</h1>
-      <p>Five charts updated daily — NYT, Audible, PopVortex, LibriVox, and Gutenberg AI. Paid and free, all in one place.</p>
-      <div class="ai-legend">⚙ AI narrated badge marks synthetic-voice titles in paid charts</div>
+      <p>Five charts updated daily — NYT Fiction and Nonfiction, PopVortex (Apple's chart), LibriVox, and Gutenberg AI. Paid and free, all in one place.</p>
     </section>
 
     <main class="bs-main">
