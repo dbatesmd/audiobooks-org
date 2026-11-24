@@ -1,3 +1,9 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.audiobooks\.org$ [NC]
+RewriteRule ^(.*)$ https://audiobooks.org/$1 [R=301,L]
+
+Redirect 301 /index.html /
+Redirect 301 /bestsellers/ /bestsellers.html
 Redirect 301 /paid-platforms.html /unlimited/
 Redirect 301 /free-sources.html /free-books/
 Redirect 301 /ai-audiobooks.html /ai-audiobooks/
